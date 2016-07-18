@@ -14,12 +14,12 @@
         /**
          * url pro tracking
          */
-        var trackingUrl = '/tracking';
+        var trackingUrl = '/track';
 
         /**
          * url pro tracking
          */
-        var clickUrl = '/clickEvent';
+        var clickUrl = '/clickTrack';
 
         /**
          * Trackovani parametru
