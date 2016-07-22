@@ -2,7 +2,7 @@
 
 namespace NAttreid\Tracking;
 
-use App\Core\User,
+use NAttreid\Security\User,
     Nette\Http\IRequest,
     NAttreid\Utils\Range,
     Nextras\Orm\Collection\ICollection,
