@@ -145,10 +145,11 @@ class Tracking {
                     $tp->visits = $row->visits;
                     $tp->views = $row->views;
 
-                    $this->orm->persistAndFlush($tp);
+                    $this->orm->persist($tp);
                 }
             }
         }
+        $this->orm->flush();
 
         return $this->orm->trackingPages->findPages($interval);
     }
