@@ -7,6 +7,15 @@ extensions:
     tracking: NAttreid\Tracking\DI\TrackingExtension
 ```
 
+Možné nastavení
+```neon
+tracking:
+    trackUrl: 'track',
+    clickUrl: 'clickTrack'
+    minTimeBetweenVisits: 30 # v minutach
+    onlineTime: 3 # v minutach
+```
+
 A přidat do orm model trackingu. V příkladu je extension orm pod nazvem **orm**
 ```neon
 orm:
