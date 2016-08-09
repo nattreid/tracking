@@ -25,8 +25,8 @@ class Router extends \NAttreid\Routing\Router {
     public function createRoutes() {
         $router = $this->getRouter();
 
-        $router[] = new Route($this->trackUrl, 'Tracking:Tracking:track');
-        $router[] = new Route($this->clickUrl, 'Tracking:Tracking:clickTrack');
+        $router[] = new Route($this->trackUrl, 'TrackingExt:Tracking:track');
+        $router[] = new Route($this->clickUrl, 'TrackingExt:Tracking:clickTrack');
     }
 
 }

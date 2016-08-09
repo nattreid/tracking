@@ -41,14 +41,14 @@ class TrackingExtension extends \Nette\DI\CompilerExtension {
         $router = $builder->getByType(RouterFactory::class);
         try {
             $builder->getDefinition($router)
-                    ->addSetup('addRouter', ['@' . $this->prefix('router'), 1]);
+                    ->addSetup('addRouter', ['@' . $this->prefix('router'), RouterFactory::PRIORITY_SYSTEM]);
         } catch (\Nette\DI\MissingServiceException $ex) {
             throw new \Nette\DI\MissingServiceException("Missing extension 'nattreid/routing'");
         }
 
         $builder->getDefinition('application.presenterFactory')
                 ->addSetup('setMapping', [
-                    ['Tracking' => 'NAttreid\Tracking\Control\*Presenter']
+                    ['TrackingExt' => 'NAttreid\Tracking\Control\*Presenter']
         ]);
 
         $trackingMapper = $builder->getByType(TrackingMapper::class);
