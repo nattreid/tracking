@@ -8,8 +8,11 @@
             "email": "attreid@gmail.com"
         }
     ],
+    "main": [
+        "./assets/nTracker.js"
+    ],
     "ignore": [
-        "src",
-        "*.json"
+        "/src",
+        "/composer.json"
     ]
 }
