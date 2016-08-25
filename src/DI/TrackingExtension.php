@@ -50,10 +50,13 @@ class TrackingExtension extends \Nette\DI\CompilerExtension {
                 ->addSetup('setMapping', [
                     ['TrackingExt' => 'NAttreid\Tracking\Control\*Presenter']
         ]);
-
-        $trackingMapper = $builder->getByType(TrackingMapper::class);
-        $builder->getDefinition($trackingMapper)
-                ->addSetup('setup', [$config['minTimeBetweenVisits'], $config['onlineTime']]);
+        try {
+            $trackingMapper = $builder->getByType(TrackingMapper::class);
+            $builder->getDefinition($trackingMapper)
+                    ->addSetup('setup', [$config['minTimeBetweenVisits'], $config['onlineTime']]);
+        } catch (\Nette\DI\MissingServiceException $ex) {
+            throw new \Nette\DI\MissingServiceException("'NAttreid\Tracking\Model\Orm' is not added to orm.");
+        }
     }
 
 }
