@@ -7,15 +7,17 @@ namespace NAttreid\Tracking\Model;
  *
  * @author Attreid <attreid@gmail.com>
  */
-class ClickTrackingGroupMapper extends Mapper {
+class ClickTrackingGroupMapper extends Mapper
+{
 
-    protected function createTable(\NAttreid\Orm\Structure\Table $table) {
-        $table->addPrimaryKey('id')
-                ->int()
-                ->setAutoIncrement();
-        $table->addColumn('name')
-                ->varChar(150)
-                ->setUnique();
-    }
+	protected function createTable(\NAttreid\Orm\Structure\Table $table)
+	{
+		$table->addPrimaryKey('id')
+			->int()
+			->setAutoIncrement();
+		$table->addColumn('name')
+			->varChar(150)
+			->setUnique();
+	}
 
 }

@@ -6,7 +6,7 @@ use Nette\Utils\DateTime;
 
 /**
  * Tracking
- * 
+ *
  * @property mixed $id {primary-proxy}
  * @property string $uid {primary}
  * @property DateTime $inserted {primary}
@@ -18,9 +18,10 @@ use Nette\Utils\DateTime;
  * @property string|NULL $utmSource
  * @property string|NULL $utmMedium
  * @property string|NULL $utmCampaign
- * 
+ *
  * @author Attreid <attreid@gmail.com>
  */
-class Tracking extends \Nextras\Orm\Entity\Entity {
-    
+class Tracking extends \Nextras\Orm\Entity\Entity
+{
+
 }

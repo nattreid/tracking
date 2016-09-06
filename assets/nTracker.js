@@ -1,5 +1,5 @@
 (function (window) {
-    
+
     /**
      * Trackovani
      * @returns {nTracker}
@@ -35,7 +35,7 @@
                 referrer = document.referrer;
             }
 
-            var data = new Array();
+            var data = [];
             data.push('url=' + url);
             data.push('referer=' + referrer);
             data.push('browser=' + this.getBrowser());
@@ -93,7 +93,7 @@
          * @param {float} sum
          */
         this.click = function (name, value, average, sum) {
-            var data = new Array();
+            var data = [];
             data.push('click=' + name);
             data.push('browser=' + this.getBrowser());
             if (typeof value !== 'undefined') {
@@ -113,7 +113,7 @@
          * Trackovani opusteni stranky
          */
         this.leaving = function () {
-            var data = new Array();
+            var data = [];
             data.push('leave=' + Math.floor(Math.random() * 10000));
 
             this.post(data.join('&'), trackingUrl);
@@ -121,7 +121,7 @@
 
         this.getBrowser = function () {
             var ua = navigator.userAgent, tem,
-                    M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+                M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
             if (/trident/i.test(M[1])) {
                 tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
                 return 'IE ' + (tem[1] || '');
@@ -139,13 +139,13 @@
 
         this.getParameter = function (data, parameter) {
             var regex = '(' + parameter + '=[a-z0-9-]+)';
-            var match = window.location.search.match(regex);
-            if (match) {
-                data.push(match[1]);
+            var search = window.location.search.match(regex);
+            if (search) {
+                data.push(search[1]);
             }
-            var match = window.location.hash.match(regex);
-            if (match) {
-                data.push(match[1]);
+            var hash = window.location.hash.match(regex);
+            if (hash) {
+                data.push(hash[1]);
             }
         };
 

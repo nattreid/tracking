@@ -6,7 +6,7 @@ use Nextras\Dbal\Utils\DateTime;
 
 /**
  * ClickTracking
- * 
+ *
  * @property int $id {primary-proxy}
  * @property string $uid {primary}
  * @property DateTime $inserted {primary}
@@ -16,9 +16,10 @@ use Nextras\Dbal\Utils\DateTime;
  * @property string|NULL $value
  * @property float|NULL $averageValue
  * @property float|NULL $sumValue
- * 
+ *
  * @author Attreid <attreid@gmail.com>
  */
-class ClickTracking extends \Nextras\Orm\Entity\Entity {
-    
+class ClickTracking extends \Nextras\Orm\Entity\Entity
+{
+
 }
