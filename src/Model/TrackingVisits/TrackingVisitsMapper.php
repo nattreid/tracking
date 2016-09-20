@@ -2,6 +2,8 @@
 
 namespace NAttreid\Tracking\Model;
 
+use DateTime;
+use NAttreid\Orm\Structure\Table;
 use NAttreid\Utils\Range;
 use Nextras\Dbal\Result\Result;
 
@@ -16,7 +18,7 @@ class TrackingVisitsMapper extends Mapper
 	/** @var boolean[] */
 	private $isCalculated = [];
 
-	protected function createTable(\NAttreid\Orm\Structure\Table $table)
+	protected function createTable(Table $table)
 	{
 		$table->addPrimaryKey('datefield')
 			->datetime();
@@ -61,12 +63,12 @@ class TrackingVisitsMapper extends Mapper
 			->andWhere('DATE([datefield]) BETWEEN DATE(%dt) AND DATE(%dt)', $interval->from, $interval->to)
 			->addGroupBy('[hour]');
 		return $this->execute($builder);
-	}
+	}/** @noinspection PhpInconsistentReturnPointsInspection */
 
 	/**
 	 * Vrati datum, ktere je treba prepocitat
 	 * @param Range $interval
-	 * @return \Datetime[]
+	 * @return DateTime[]
 	 */
 	public function findCalculateDate(Range $interval)
 	{
@@ -76,7 +78,7 @@ class TrackingVisitsMapper extends Mapper
 		$this->isCalculated[(string)$interval] = TRUE;
 
 		// dopocita posledni den
-		if ($interval->to->format('Y-m-d') === (new \DateTime)->format('Y-m-d')) {
+		if ($interval->to->format('Y-m-d') === (new DateTime)->format('Y-m-d')) {
 			$last = $this->connection->query('SELECT MAX([datefield]) datefield FROM %table', $this->getTableName())->fetch();
 			if ($last) {
 				yield $last->datefield;
@@ -107,10 +109,10 @@ class TrackingVisitsMapper extends Mapper
 
 	/**
 	 * Vrati entitu podle klice
-	 * @param \Datetime $date
+	 * @param DateTime $date
 	 * @return TrackingVisits
 	 */
-	public function getByKey(\Datetime $date)
+	public function getByKey(DateTime $date)
 	{
 		$builder = $this->builder()
 			->andWhere('[datefield] = %dt', $date);

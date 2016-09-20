@@ -2,6 +2,8 @@
 
 namespace NAttreid\Tracking\Model;
 
+use DateTime;
+use NAttreid\Orm\Repository;
 use NAttreid\Utils\Range;
 use Nextras\Dbal\Result\Result;
 use Nextras\Orm\Collection\ICollection;
@@ -9,12 +11,12 @@ use Nextras\Orm\Collection\ICollection;
 /**
  * TrackingVisits Repository
  *
- * @method ICollection|TrackingVisits[] findVisitsDays(\NAttreid\Utils\Range $interval)
- * @method TrackingPages getByKey(\Datetime $date)
+ * @method ICollection|TrackingVisits[] findVisitsDays(Range $interval)
+ * @method TrackingPages getByKey(DateTime $date)
  *
  * @author Attreid <attreid@gmail.com>
  */
-class TrackingVisitsRepository extends \NAttreid\Orm\Repository
+class TrackingVisitsRepository extends Repository
 {
 
 	/** @var TrackingVisitsMapper */
@@ -28,7 +30,7 @@ class TrackingVisitsRepository extends \NAttreid\Orm\Repository
 	/**
 	 * Vrati datum, ktere je treba prepocitat
 	 * @param Range $interval
-	 * @return \Datetime[]
+	 * @return DateTime[]
 	 */
 	public function findCalculateDate(Range $interval)
 	{

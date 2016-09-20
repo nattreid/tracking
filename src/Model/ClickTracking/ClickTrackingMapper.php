@@ -2,6 +2,7 @@
 
 namespace NAttreid\Tracking\Model;
 
+use NAttreid\Orm\Structure\Table;
 use NAttreid\Utils\Range;
 use Nextras\Dbal\Result\Result;
 
@@ -13,7 +14,7 @@ use Nextras\Dbal\Result\Result;
 class ClickTrackingMapper extends Mapper
 {
 
-	protected function createTable(\NAttreid\Orm\Structure\Table $table)
+	protected function createTable(Table $table)
 	{
 		$table->addColumn('uid')
 			->char(36);

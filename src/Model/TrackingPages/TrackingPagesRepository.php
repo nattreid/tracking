@@ -2,19 +2,20 @@
 
 namespace NAttreid\Tracking\Model;
 
-use Datetime;
+use DateTime;
+use NAttreid\Orm\Repository;
 use NAttreid\Utils\Range;
 use Nextras\Orm\Collection\ICollection;
 
 /**
  * TrackingPages Repository
  *
- * @method ICollection|TrackingPages[] findPages(\NAttreid\Utils\Range $interval)
- * @method TrackingPages getByKey(Datetime $date, $page)
+ * @method ICollection|TrackingPages[] findPages(Range $interval)
+ * @method TrackingPages getByKey(DateTime $date, $page)
  *
  * @author Attreid <attreid@gmail.com>
  */
-class TrackingPagesRepository extends \NAttreid\Orm\Repository
+class TrackingPagesRepository extends Repository
 {
 
 	/** @var TrackingPagesMapper */
@@ -28,7 +29,7 @@ class TrackingPagesRepository extends \NAttreid\Orm\Repository
 	/**
 	 * Vrati datum, ktere je treba prepocitat
 	 * @param Range $interval
-	 * @return Datetime[]
+	 * @return DateTime[]
 	 */
 	public function findCalculateDate(Range $interval)
 	{

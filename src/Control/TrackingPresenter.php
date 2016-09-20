@@ -3,13 +3,14 @@
 namespace NAttreid\Tracking\Control;
 
 use NAttreid\Tracking\Tracking;
+use Nette\Application\UI\Presenter;
 
 /**
  * Presenter por tracking
  *
  * @author Attreid <attreid@gmail.com>
  */
-class TrackingPresenter extends \Nette\Application\UI\Presenter
+class TrackingPresenter extends Presenter
 {
 
 	/** @var Tracking */

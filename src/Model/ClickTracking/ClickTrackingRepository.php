@@ -2,6 +2,7 @@
 
 namespace NAttreid\Tracking\Model;
 
+use NAttreid\Orm\Repository;
 use NAttreid\Utils\Range;
 use Nextras\Dbal\Result\Result;
 
@@ -10,7 +11,7 @@ use Nextras\Dbal\Result\Result;
  *
  * @author Attreid <attreid@gmail.com>
  */
-class ClickTrackingRepository extends \NAttreid\Orm\Repository
+class ClickTrackingRepository extends Repository
 {
 
 	/** @var ClickTrackingMapper */

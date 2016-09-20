@@ -5,13 +5,17 @@ namespace NAttreid\Tracking;
 use NAttreid\Security\User;
 use NAttreid\Tracking\Model\ClickTracking;
 use NAttreid\Tracking\Model\ClickTrackingGroup;
+use NAttreid\Tracking\Model\Orm;
 use NAttreid\Tracking\Model\TrackingPages;
 use NAttreid\Tracking\Model\TrackingVisits;
 use NAttreid\Utils\Range;
 use Nette\Http\IRequest;
+use Nette\SmartObject;
 use Nette\Utils\DateTime;
 use Nextras\Dbal\Result\Result;
 use Nextras\Orm\Collection\ICollection;
+use Nextras\Orm\Model\Model;
+use NAttreid\Tracking\Model\Tracking as TrackingEntity;
 
 /**
  * Tracking
@@ -21,12 +25,12 @@ use Nextras\Orm\Collection\ICollection;
 class Tracking
 {
 
-	use \Nette\SmartObject;
+	use SmartObject;
 
 	/** @var int */
 	private $minTimeBetweenVisits;
 
-	/** @var Model\Orm */
+	/** @var Orm */
 	private $orm;
 
 	/** @var User */
@@ -35,7 +39,7 @@ class Tracking
 	/** @var IRequest */
 	private $request;
 
-	public function __construct($minTimeBetweenVisits, \Nextras\Orm\Model\Model $orm, User $user, IRequest $request)
+	public function __construct($minTimeBetweenVisits, Model $orm, User $user, IRequest $request)
 	{
 		$this->minTimeBetweenVisits = $minTimeBetweenVisits;
 		$this->orm = $orm;
@@ -85,7 +89,7 @@ class Tracking
 	 */
 	public function track()
 	{
-		$track = new Model\Tracking;
+		$track = new TrackingEntity;
 
 		$track->uid = $this->user->getUid();
 		$track->inserted = new DateTime;

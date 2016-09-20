@@ -1,13 +1,14 @@
 <?php
 
 namespace NAttreid\Tracking\Model;
+use NAttreid\Orm\Repository;
 
 /**
  * ClickTrackingGroup Repository
  *
  * @author Attreid <attreid@gmail.com>
  */
-class ClickTrackingGroupRepository extends \NAttreid\Orm\Repository
+class ClickTrackingGroupRepository extends Repository
 {
 
 	public static function getEntityClassNames()
@@ -22,7 +23,7 @@ class ClickTrackingGroupRepository extends \NAttreid\Orm\Repository
 	 */
 	public function getByName($name)
 	{
-		return $this->findBy(['name' => $name])->fetch();
+		return $this->getBy(['name' => $name]);
 	}
 
 }

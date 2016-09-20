@@ -3,6 +3,7 @@
 namespace NAttreid\Tracking\Model;
 
 use Nextras\Dbal\Utils\DateTime;
+use Nextras\Orm\Entity\Entity;
 
 /**
  * ClickTracking
@@ -19,7 +20,7 @@ use Nextras\Dbal\Utils\DateTime;
  *
  * @author Attreid <attreid@gmail.com>
  */
-class ClickTracking extends \Nextras\Orm\Entity\Entity
+class ClickTracking extends Entity
 {
 
 }

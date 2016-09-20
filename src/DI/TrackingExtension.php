@@ -6,13 +6,15 @@ use NAttreid\Routing\RouterFactory;
 use NAttreid\Tracking\Model\TrackingMapper;
 use NAttreid\Tracking\Routing\Router;
 use NAttreid\Tracking\Tracking;
+use Nette\DI\CompilerExtension;
+use Nette\DI\MissingServiceException;
 
 /**
  * Tracking rozsireni
  *
  * @author Attreid <attreid@gmail.com>
  */
-class TrackingExtension extends \Nette\DI\CompilerExtension
+class TrackingExtension extends CompilerExtension
 {
 
 	private $defaults = [
@@ -45,8 +47,8 @@ class TrackingExtension extends \Nette\DI\CompilerExtension
 		try {
 			$builder->getDefinition($router)
 				->addSetup('addRouter', ['@' . $this->prefix('router'), RouterFactory::PRIORITY_SYSTEM]);
-		} catch (\Nette\DI\MissingServiceException $ex) {
-			throw new \Nette\DI\MissingServiceException("Missing extension 'nattreid/routing'");
+		} catch (MissingServiceException $ex) {
+			throw new MissingServiceException("Missing extension 'nattreid/routing'");
 		}
 
 		$builder->getDefinition('application.presenterFactory')
@@ -57,8 +59,8 @@ class TrackingExtension extends \Nette\DI\CompilerExtension
 			$trackingMapper = $builder->getByType(TrackingMapper::class);
 			$builder->getDefinition($trackingMapper)
 				->addSetup('setup', [$config['minTimeBetweenVisits'], $config['onlineTime']]);
-		} catch (\Nette\DI\MissingServiceException $ex) {
-			throw new \Nette\DI\MissingServiceException("'NAttreid\Tracking\Model\Orm' is not added to orm.");
+		} catch (MissingServiceException $ex) {
+			throw new MissingServiceException("'NAttreid\Tracking\Model\Orm' is not added to orm.");
 		}
 	}
 

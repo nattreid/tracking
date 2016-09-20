@@ -2,7 +2,9 @@
 
 namespace NAttreid\Tracking\Model;
 
+use NAttreid\Orm\Structure\Table;
 use NAttreid\Utils\Range;
+use Nette\Http\Url;
 use Nextras\Dbal\QueryBuilder\QueryBuilder;
 use Nextras\Dbal\Result\Result;
 
@@ -26,7 +28,7 @@ class TrackingMapper extends Mapper
 		$this->onlineTime = $onlineTime;
 	}
 
-	protected function createTable(\NAttreid\Orm\Structure\Table $table)
+	protected function createTable(Table $table)
 	{
 		$table->addColumn('uid')
 			->char(36)
@@ -141,7 +143,7 @@ class TrackingMapper extends Mapper
 			$data->visits = $row->visits;
 			$data->views = $row->views;
 
-			$url = new \Nette\Http\Url($row->url);
+			$url = new Url($row->url);
 			$data->page = substr($url->getPath(), 1) ?: '';
 			if (!empty($url->query)) {
 				$data->page .= '?' . $url->getQuery();

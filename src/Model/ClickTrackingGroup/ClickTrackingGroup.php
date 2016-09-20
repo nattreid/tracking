@@ -1,6 +1,7 @@
 <?php
 
 namespace NAttreid\Tracking\Model;
+use Nextras\Orm\Entity\Entity;
 
 /**
  * ClickTrackingGroup
@@ -10,7 +11,7 @@ namespace NAttreid\Tracking\Model;
  *
  * @author Attreid <attreid@gmail.com>
  */
-class ClickTrackingGroup extends \Nextras\Orm\Entity\Entity
+class ClickTrackingGroup extends Entity
 {
 
 }

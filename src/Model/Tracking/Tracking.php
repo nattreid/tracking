@@ -3,6 +3,7 @@
 namespace NAttreid\Tracking\Model;
 
 use Nette\Utils\DateTime;
+use Nextras\Orm\Entity\Entity;
 
 /**
  * Tracking
@@ -21,7 +22,7 @@ use Nette\Utils\DateTime;
  *
  * @author Attreid <attreid@gmail.com>
  */
-class Tracking extends \Nextras\Orm\Entity\Entity
+class Tracking extends Entity
 {
 
 }

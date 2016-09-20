@@ -3,6 +3,7 @@
 namespace NAttreid\Tracking\Model;
 
 use Nextras\Dbal\Utils\DateTime;
+use Nextras\Orm\Entity\Entity;
 
 /**
  * TrackingPages
@@ -15,7 +16,7 @@ use Nextras\Dbal\Utils\DateTime;
  *
  * @author Attreid <attreid@gmail.com>
  */
-class TrackingPages extends \Nextras\Orm\Entity\Entity
+class TrackingPages extends Entity
 {
 
 }
