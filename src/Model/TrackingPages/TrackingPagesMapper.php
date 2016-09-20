@@ -44,7 +44,7 @@ class TrackingPagesMapper extends Mapper
 			->groupBy('[page]')
 			->addOrderBy('[visits] DESC, [views] DESC, [page]');
 		return $this->execute($builder);
-	}/** @noinspection PhpInconsistentReturnPointsInspection */
+	}
 
 	/**
 	 * Vrati datum, ktere je treba prepocitat

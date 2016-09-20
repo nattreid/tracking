@@ -63,7 +63,7 @@ class TrackingVisitsMapper extends Mapper
 			->andWhere('DATE([datefield]) BETWEEN DATE(%dt) AND DATE(%dt)', $interval->from, $interval->to)
 			->addGroupBy('[hour]');
 		return $this->execute($builder);
-	}/** @noinspection PhpInconsistentReturnPointsInspection */
+	}
 
 	/**
 	 * Vrati datum, ktere je treba prepocitat
