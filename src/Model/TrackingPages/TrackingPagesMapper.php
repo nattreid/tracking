@@ -99,7 +99,7 @@ class TrackingPagesMapper extends Mapper
 		$builder = $this->builder()
 			->andWhere('[datefield] = DATE(%dt)', $date)
 			->andWhere('[page] = %s', $page);
-		return $this->toCollection($builder)->fetch();
+		return $this->fetch($builder);
 	}
 
 }

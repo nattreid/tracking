@@ -116,7 +116,7 @@ class TrackingVisitsMapper extends Mapper
 	{
 		$builder = $this->builder()
 			->andWhere('[datefield] = %dt', $date);
-		return $this->toCollection($builder)->fetch();
+		return $this->fetch($builder);
 	}
 
 }
