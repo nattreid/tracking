@@ -12,11 +12,11 @@ use Nextras\Orm\Entity\Entity;
  * @property string $uid {primary}
  * @property DateTime $inserted {primary}
  * @property int $groupId
- * @property string|NULL $ip
- * @property string|NULL $browser
- * @property string|NULL $value
- * @property float|NULL $averageValue
- * @property float|NULL $sumValue
+ * @property string|null $ip
+ * @property string|null $browser
+ * @property string|null $value
+ * @property float|null $averageValue
+ * @property float|null $sumValue
  *
  * @author Attreid <attreid@gmail.com>
  */

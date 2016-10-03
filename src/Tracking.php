@@ -53,7 +53,7 @@ class Tracking
 	 * @param string $default
 	 * @return string
 	 */
-	private function getParam($name, $default = NULL)
+	private function getParam($name, $default = null)
 	{
 		return $this->request->getPost($name, $default);
 	}
@@ -140,7 +140,7 @@ class Tracking
 	public function findPages(Range $interval)
 	{
 		foreach ($this->orm->trackingPages->findCalculateDate($interval) as $date) {
-			if ($date !== NULL) {
+			if ($date !== null) {
 				$date->setTime(0, 0, 0);
 				$to = clone $date;
 				$to->modify('+23 HOUR');
@@ -150,7 +150,7 @@ class Tracking
 				$pages = $this->orm->tracking->findVisitPages(new Range($date, $to));
 				foreach ($pages as $row) {
 					$tp = $this->orm->trackingPages->getByKey($row->datefield, $row->page);
-					if ($tp === NULL) {
+					if ($tp === null) {
 						$tp = new TrackingPages;
 					}
 					$tp->datefield = $row->datefield;
@@ -196,17 +196,17 @@ class Tracking
 	private function checkVisits(Range $interval)
 	{
 		foreach ($this->orm->trackingVisits->findCalculateDate($interval) as $date) {
-			if ($date !== NULL) {
+			if ($date !== null) {
 				$date->setTime(0, 0, 0);
 				$to = clone $date;
 				$to->modify('+23 HOUR');
 				$to->modify('+59 MINUTE');
 				$to->modify('+59 SECONDS');
 
-				$pages = $this->orm->tracking->findVisitsHours(new Range($date, $to), TRUE);
+				$pages = $this->orm->tracking->findVisitsHours(new Range($date, $to), true);
 				foreach ($pages as $row) {
 					$tp = $this->orm->trackingVisits->getByKey(new \DateTime($row->datefield));
-					if ($tp === NULL) {
+					if ($tp === null) {
 						$tp = new TrackingVisits;
 					}
 					$tp->datefield = $row->datefield;

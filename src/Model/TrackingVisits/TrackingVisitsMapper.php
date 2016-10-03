@@ -75,7 +75,7 @@ class TrackingVisitsMapper extends Mapper
 		if (isset($this->isCalculated[(string)$interval])) {
 			return [];
 		}
-		$this->isCalculated[(string)$interval] = TRUE;
+		$this->isCalculated[(string)$interval] = true;
 
 		// dopocita posledni den
 		if ($interval->to->format('Y-m-d') === (new DateTime)->format('Y-m-d')) {

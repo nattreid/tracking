@@ -23,7 +23,7 @@ class TrackingPresenter extends Presenter
 	}
 
 	/**
-	 * Vrati hodnotu promenne z POST, pokud neni vrati NULL
+	 * Vrati hodnotu promenne z POST, pokud neni vrati null
 	 * @param string $name
 	 * @return string
 	 */

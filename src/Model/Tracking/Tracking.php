@@ -13,12 +13,12 @@ use Nextras\Orm\Entity\Entity;
  * @property DateTime $inserted {primary}
  * @property string $url
  * @property string $referer
- * @property string|NULL $ip
- * @property string|NULL $browser
- * @property int|NULL $timeOnPage
- * @property string|NULL $utmSource
- * @property string|NULL $utmMedium
- * @property string|NULL $utmCampaign
+ * @property string|null $ip
+ * @property string|null $browser
+ * @property int|null $timeOnPage
+ * @property string|null $utmSource
+ * @property string|null $utmMedium
+ * @property string|null $utmCampaign
  *
  * @author Attreid <attreid@gmail.com>
  */

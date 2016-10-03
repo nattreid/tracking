@@ -39,7 +39,7 @@ class TrackingRepository extends Repository
 	 * @param boolean $useTime ma se pouzit cas v intervalu
 	 * @return Result
 	 */
-	public function findVisitsHours(Range $interval, $useTime = FALSE)
+	public function findVisitsHours(Range $interval, $useTime = false)
 	{
 		return $this->mapper->findVisitsHours($interval, $useTime);
 	}

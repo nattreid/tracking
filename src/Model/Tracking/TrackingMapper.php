@@ -42,23 +42,23 @@ class TrackingMapper extends Mapper
 			->varChar();
 		$table->addColumn('ip')
 			->varChar(16)
-			->setDefault(NULL)
+			->setDefault(null)
 			->setKey();
 		$table->addColumn('browser')
 			->varChar(30)
-			->setDefault(NULL);
+			->setDefault(null);
 		$table->addColumn('timeOnPage')
 			->int()
-			->setDefault(NULL);
+			->setDefault(null);
 		$table->addColumn('utmSource')
 			->varChar(50)
-			->setDefault(NULL);
+			->setDefault(null);
 		$table->addColumn('utmMedium')
 			->varChar(50)
-			->setDefault(NULL);
+			->setDefault(null);
 		$table->addColumn('utmCampaign')
 			->varChar(50)
-			->setDefault(NULL);
+			->setDefault(null);
 		$table->setPrimaryKey('uid', 'inserted');
 		$table->add('!50100 PARTITION BY RANGE ( YEAR(inserted))
                         (PARTITION y2014 VALUES LESS THAN (2015) ENGINE = InnoDB,
@@ -97,7 +97,7 @@ class TrackingMapper extends Mapper
 		$builder = $this->builder()
 			->addSelect('COUNT(DISTINCT([uid])) count')
 			->andWhere('[inserted] > %dt', (new \DateTime)->modify('-' . $this->onlineTime . ' minute'))
-			->andWhere('[timeOnPage] IS NOT NULL');
+			->andWhere('[timeOnPage] IS NOT null');
 		return $this->execute($builder);
 	}
 
@@ -107,7 +107,7 @@ class TrackingMapper extends Mapper
 	 * @param boolean $useTime ma se pouzit cas v intervalu
 	 * @return Result
 	 */
-	public function findVisitsHours(Range $interval, $useTime = FALSE)
+	public function findVisitsHours(Range $interval, $useTime = false)
 	{
 		$date = $useTime ? '%dt' : 'DATE(%dt)';
 

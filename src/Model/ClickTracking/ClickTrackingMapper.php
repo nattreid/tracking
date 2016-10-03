@@ -25,20 +25,20 @@ class ClickTrackingMapper extends Mapper
 			->datetime();
 		$table->addColumn('ip')
 			->varChar(16)
-			->setDefault(NULL)
+			->setDefault(null)
 			->setKey();
 		$table->addColumn('browser')
 			->varChar(30)
-			->setDefault(NULL);
+			->setDefault(null);
 		$table->addColumn('value')
 			->varChar(50)
-			->setDefault(NULL);
+			->setDefault(null);
 		$table->addColumn('averageValue')
 			->float(13, 2)
-			->setDefault(NULL);
+			->setDefault(null);
 		$table->addColumn('sumValue')
 			->float(13, 2)
-			->setDefault(NULL);
+			->setDefault(null);
 		$table->setPrimaryKey('uid', 'inserted');
 		$table->add('!50100 PARTITION BY RANGE ( YEAR(inserted))
                         (PARTITION y2014 VALUES LESS THAN (2015) ENGINE = InnoDB,
