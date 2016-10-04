@@ -53,7 +53,7 @@ class TrackingExtension extends CompilerExtension
 
 		$builder->getDefinition('application.presenterFactory')
 			->addSetup('setMapping', [
-				['TrackingExt' => 'NAttreid\Tracking\Control\*Presenter']
+				['Tracking' => 'NAttreid\Tracking\Control\*Presenter']
 			]);
 		try {
 			$trackingMapper = $builder->getByType(TrackingMapper::class);
