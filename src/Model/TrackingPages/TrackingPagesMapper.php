@@ -54,7 +54,7 @@ class TrackingPagesMapper extends Mapper
 	public function findCalculateDate(Range $interval)
 	{
 		if (isset($this->isCalculated[(string)$interval])) {
-			yield [];
+			yield null;
 		}
 		$this->isCalculated[(string)$interval] = true;
 
