@@ -16,7 +16,7 @@ class ClickTrackingMapper extends Mapper
 
 	protected function createTable(Table $table)
 	{
-		$table->addColumn('id')
+		$table->addColumn('aiid')
 			->int()
 			->setAutoIncrement();
 		$table->addColumn('uid')
@@ -45,7 +45,7 @@ class ClickTrackingMapper extends Mapper
 			->float(13, 2)
 			->setDefault(null);
 		$table->addKey('uid', 'inserted');
-		$table->setPrimaryKey('id', 'inserted');
+		$table->setPrimaryKey('aiid', 'inserted');
 		$table->add('!50100 PARTITION BY RANGE ( YEAR(inserted))
                         (PARTITION y2014 VALUES LESS THAN (2015) ENGINE = InnoDB,
                          PARTITION y2015 VALUES LESS THAN (2016) ENGINE = InnoDB,

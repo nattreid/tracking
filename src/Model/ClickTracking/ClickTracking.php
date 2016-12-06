@@ -8,9 +8,10 @@ use Nextras\Orm\Entity\Entity;
 /**
  * ClickTracking
  *
- * @property int $id {primary}
+ * @property mixed $id {primary-proxy}
+ * @property int $aiid {primary}
  * @property string $uid
- * @property DateTime $inserted
+ * @property DateTime $inserted  {primary}
  * @property int $groupId
  * @property string|null $ip
  * @property string|null $browser
