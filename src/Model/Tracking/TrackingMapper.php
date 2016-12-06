@@ -30,11 +30,15 @@ class TrackingMapper extends Mapper
 
 	protected function createTable(Table $table)
 	{
+		$table->addColumn('id')
+			->int()
+			->setAutoIncrement();
 		$table->addColumn('uid')
 			->char(36)
 			->setKey();
 		$table->addColumn('inserted')
-			->datetime();
+			->datetime()
+			->setKey();
 		$table->addColumn('url')
 			->varChar()
 			->setKey();
@@ -59,7 +63,8 @@ class TrackingMapper extends Mapper
 		$table->addColumn('utmCampaign')
 			->varChar(50)
 			->setDefault(null);
-		$table->setPrimaryKey('uid', 'inserted');
+		$table->addKey('uid', 'inserted');
+		$table->setPrimaryKey('id', 'inserted');
 		$table->add('!50100 PARTITION BY RANGE ( YEAR(inserted))
                         (PARTITION y2014 VALUES LESS THAN (2015) ENGINE = InnoDB,
                          PARTITION y2015 VALUES LESS THAN (2016) ENGINE = InnoDB,

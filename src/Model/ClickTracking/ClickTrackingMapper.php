@@ -16,13 +16,18 @@ class ClickTrackingMapper extends Mapper
 
 	protected function createTable(Table $table)
 	{
+		$table->addColumn('id')
+			->int()
+			->setAutoIncrement();
 		$table->addColumn('uid')
-			->char(36);
+			->char(36)
+			->setKey();
+		$table->addColumn('inserted')
+			->datetime()
+			->setKey();
 		$table->addColumn('groupId')
 			->int()
 			->setKey();
-		$table->addColumn('inserted')
-			->datetime();
 		$table->addColumn('ip')
 			->varChar(16)
 			->setDefault(null)
@@ -39,7 +44,8 @@ class ClickTrackingMapper extends Mapper
 		$table->addColumn('sumValue')
 			->float(13, 2)
 			->setDefault(null);
-		$table->setPrimaryKey('uid', 'inserted');
+		$table->addKey('uid', 'inserted');
+		$table->setPrimaryKey('id', 'inserted');
 		$table->add('!50100 PARTITION BY RANGE ( YEAR(inserted))
                         (PARTITION y2014 VALUES LESS THAN (2015) ENGINE = InnoDB,
                          PARTITION y2015 VALUES LESS THAN (2016) ENGINE = InnoDB,

@@ -8,9 +8,9 @@ use Nextras\Orm\Entity\Entity;
 /**
  * Tracking
  *
- * @property mixed $id {primary-proxy}
- * @property string $uid {primary}
- * @property DateTime $inserted {primary}
+ * @property mixed $id {primary}
+ * @property string $uid
+ * @property DateTime $inserted
  * @property string $url
  * @property string $referer
  * @property string|null $ip
