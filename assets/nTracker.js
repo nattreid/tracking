@@ -221,6 +221,7 @@
 
     }
 
-    new nTracker().run();
+    window.nTracker = new nTracker();
+    window.nTracker.run();
 
 })(window);
