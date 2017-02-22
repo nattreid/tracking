@@ -1,6 +1,6 @@
 <?php
 
-namespace NAttreid\Tracking\Model;
+namespace NAttreid\Tracking\Model\TrackingPages;
 
 use DateTime;
 use NAttreid\Orm\Repository;

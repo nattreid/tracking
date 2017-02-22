@@ -1,6 +1,7 @@
 <?php
 
-namespace NAttreid\Tracking\Model;
+namespace NAttreid\Tracking\Model\ClickTrackingGroup;
+
 use Nextras\Orm\Entity\Entity;
 
 /**

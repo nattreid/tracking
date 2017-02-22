@@ -1,11 +1,13 @@
 <?php
 
-namespace NAttreid\Tracking\Model;
+namespace NAttreid\Tracking\Model\TrackingVisits;
 
 use DateTime;
 use NAttreid\Orm\Structure\Table;
+use NAttreid\Tracking\Model\Mapper;
 use NAttreid\Utils\Range;
 use Nextras\Dbal\Result\Result;
+use Nextras\Orm\Entity\IEntity;
 
 /**
  * TrackingVisits Mapper
@@ -110,7 +112,7 @@ class TrackingVisitsMapper extends Mapper
 	/**
 	 * Vrati entitu podle klice
 	 * @param DateTime $date
-	 * @return TrackingVisits
+	 * @return IEntity|TrackingVisits
 	 */
 	public function getByKey(DateTime $date)
 	{

@@ -1,7 +1,9 @@
 <?php
 
-namespace NAttreid\Tracking\Model;
+namespace NAttreid\Tracking\Model\ClickTrackingGroup;
+
 use NAttreid\Orm\Structure\Table;
+use NAttreid\Tracking\Model\Mapper;
 
 /**
  * ClickTrackingGroup Mapper

@@ -1,6 +1,12 @@
 <?php
 
 namespace NAttreid\Tracking\Model;
+
+use NAttreid\Tracking\Model\ClickTracking\ClickTrackingRepository;
+use NAttreid\Tracking\Model\ClickTrackingGroup\ClickTrackingGroupRepository;
+use NAttreid\Tracking\Model\Tracking\TrackingRepository;
+use NAttreid\Tracking\Model\TrackingPages\TrackingPagesRepository;
+use NAttreid\Tracking\Model\TrackingVisits\TrackingVisitsRepository;
 use Nextras\Orm\Model\Model;
 
 /**

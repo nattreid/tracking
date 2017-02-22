@@ -3,11 +3,12 @@
 namespace NAttreid\Tracking;
 
 use NAttreid\Security\User;
-use NAttreid\Tracking\Model\ClickTracking;
-use NAttreid\Tracking\Model\ClickTrackingGroup;
+use NAttreid\Tracking\Model\ClickTracking\ClickTracking;
+use NAttreid\Tracking\Model\ClickTrackingGroup\ClickTrackingGroup;
 use NAttreid\Tracking\Model\Orm;
-use NAttreid\Tracking\Model\TrackingPages;
-use NAttreid\Tracking\Model\TrackingVisits;
+use NAttreid\Tracking\Model\Tracking\Tracking as TrackingEntity;
+use NAttreid\Tracking\Model\TrackingPages\TrackingPages;
+use NAttreid\Tracking\Model\TrackingVisits\TrackingVisits;
 use NAttreid\Utils\Range;
 use Nette\Http\IRequest;
 use Nette\SmartObject;
@@ -15,7 +16,6 @@ use Nette\Utils\DateTime;
 use Nextras\Dbal\Result\Result;
 use Nextras\Orm\Collection\ICollection;
 use Nextras\Orm\Model\Model;
-use NAttreid\Tracking\Model\Tracking as TrackingEntity;
 
 /**
  * Tracking

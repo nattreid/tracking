@@ -1,6 +1,6 @@
 <?php
 
-namespace NAttreid\Tracking\Model;
+namespace NAttreid\Tracking\Model\Tracking;
 
 use NAttreid\Orm\Repository;
 use NAttreid\Utils\Range;

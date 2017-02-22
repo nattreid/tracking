@@ -1,8 +1,9 @@
 <?php
 
-namespace NAttreid\Tracking\Model;
+namespace NAttreid\Tracking\Model\Tracking;
 
 use NAttreid\Orm\Structure\Table;
+use NAttreid\Tracking\Model\Mapper;
 use NAttreid\Utils\Range;
 use Nette\Http\Url;
 use Nextras\Dbal\QueryBuilder\QueryBuilder;

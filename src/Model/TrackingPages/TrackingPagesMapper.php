@@ -1,11 +1,13 @@
 <?php
 
-namespace NAttreid\Tracking\Model;
+namespace NAttreid\Tracking\Model\TrackingPages;
 
 use DateTime;
 use NAttreid\Orm\Structure\Table;
+use NAttreid\Tracking\Model\Mapper;
 use NAttreid\Utils\Range;
 use Nextras\Dbal\Result\Result;
+use Nextras\Orm\Entity\IEntity;
 
 /**
  * TrackingPages Mapper
@@ -92,7 +94,7 @@ class TrackingPagesMapper extends Mapper
 	 * Vrati entitu podle klice
 	 * @param DateTime $date
 	 * @param string $page
-	 * @return TrackingPages
+	 * @return IEntity|TrackingPages
 	 */
 	public function getByKey(DateTime $date, $page)
 	{

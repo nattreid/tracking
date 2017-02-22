@@ -3,7 +3,7 @@
 namespace NAttreid\Tracking\DI;
 
 use NAttreid\Routing\RouterFactory;
-use NAttreid\Tracking\Model\TrackingMapper;
+use NAttreid\Tracking\Model\Tracking\TrackingMapper;
 use NAttreid\Tracking\Routing\Router;
 use NAttreid\Tracking\Tracking;
 use Nette\DI\CompilerExtension;

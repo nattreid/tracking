@@ -1,6 +1,6 @@
 <?php
 
-namespace NAttreid\Tracking\Model;
+namespace NAttreid\Tracking\Model\TrackingPages;
 
 use Nextras\Dbal\Utils\DateTime;
 use Nextras\Orm\Entity\Entity;

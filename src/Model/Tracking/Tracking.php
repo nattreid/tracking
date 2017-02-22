@@ -1,6 +1,6 @@
 <?php
 
-namespace NAttreid\Tracking\Model;
+namespace NAttreid\Tracking\Model\Tracking;
 
 use Nette\Utils\DateTime;
 use Nextras\Orm\Entity\Entity;
