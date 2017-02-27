@@ -50,19 +50,19 @@ class TrackingMapper extends Mapper
 			->setDefault(null)
 			->setKey();
 		$table->addColumn('browser')
-			->varChar(100)
+			->varChar()
 			->setDefault(null);
 		$table->addColumn('timeOnPage')
 			->int()
 			->setDefault(null);
 		$table->addColumn('utmSource')
-			->varChar(50)
+			->varChar(100)
 			->setDefault(null);
 		$table->addColumn('utmMedium')
-			->varChar(50)
+			->varChar(100)
 			->setDefault(null);
 		$table->addColumn('utmCampaign')
-			->varChar(50)
+			->varChar(100)
 			->setDefault(null);
 		$table->addKey('uid', 'inserted');
 		$table->setPrimaryKey('aiid', 'inserted');
