@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace NAttreid\Tracking;
 
 use NAttreid\Security\User;
@@ -39,7 +41,7 @@ class Tracking
 	/** @var IRequest */
 	private $request;
 
-	public function __construct($minTimeBetweenVisits, Model $orm, User $user, IRequest $request)
+	public function __construct(int $minTimeBetweenVisits, Model $orm, User $user, IRequest $request)
 	{
 		$this->minTimeBetweenVisits = $minTimeBetweenVisits;
 		$this->orm = $orm;
@@ -53,7 +55,7 @@ class Tracking
 	 * @param string $default
 	 * @return string
 	 */
-	private function getParam($name, $default = null)
+	private function getParam(string $name, string $default = null): string
 	{
 		return $this->request->getPost($name, $default);
 	}
@@ -62,7 +64,7 @@ class Tracking
 	 * Vrati pocet online uzivatelu
 	 * @return int
 	 */
-	public function onlineUsers()
+	public function onlineUsers(): int
 	{
 		return $this->orm->tracking->onlineUsers();
 	}
@@ -137,7 +139,7 @@ class Tracking
 	 * @param Range $interval
 	 * @return ICollection|TrackingPages[]
 	 */
-	public function findPages(Range $interval)
+	public function findPages(Range $interval): ICollection
 	{
 		foreach ($this->orm->trackingPages->findCalculateDate($interval) as $date) {
 			if ($date !== null) {
@@ -172,7 +174,7 @@ class Tracking
 	 * @param Range $interval
 	 * @return ICollection|TrackingVisits[]
 	 */
-	public function findVisitsDays(Range $interval)
+	public function findVisitsDays(Range $interval): ICollection
 	{
 		$this->checkVisits($interval);
 		return $this->orm->trackingVisits->findVisitsDays($interval);
@@ -181,7 +183,7 @@ class Tracking
 	/**
 	 * Pocet navstev po hodinach ve dni
 	 * @param Range $interval
-	 * @return Result
+	 * @return Result|null
 	 */
 	public function findVisitsHours(Range $interval)
 	{
@@ -222,7 +224,7 @@ class Tracking
 	 * Vrati pole skupin
 	 * @return array
 	 */
-	public function fetchGroupPairs()
+	public function fetchGroupPairs(): array
 	{
 		return $this->orm->clickTrackingGroup->fetchPairsByName();
 	}
@@ -231,9 +233,9 @@ class Tracking
 	 * Pocet kliku po dnech
 	 * @param int $groupId
 	 * @param Range $interval
-	 * @return Result
+	 * @return Result|null
 	 */
-	public function findClicksByDay($groupId, Range $interval)
+	public function findClicksByDay(int $groupId, Range $interval)
 	{
 		return $this->orm->clickTracking->findClicksByDay($groupId, $interval);
 	}

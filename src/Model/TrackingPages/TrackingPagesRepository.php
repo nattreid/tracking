@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace NAttreid\Tracking\Model\TrackingPages;
 
 use DateTime;
@@ -31,7 +33,7 @@ class TrackingPagesRepository extends Repository
 	 * @param Range $interval
 	 * @return DateTime[]
 	 */
-	public function findCalculateDate(Range $interval)
+	public function findCalculateDate(Range $interval): array
 	{
 		return $this->mapper->findCalculateDate($interval);
 	}

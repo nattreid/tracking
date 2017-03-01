@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace NAttreid\Tracking\Model\TrackingVisits;
 
 use DateTime;
@@ -33,7 +35,7 @@ class TrackingVisitsRepository extends Repository
 	 * @param Range $interval
 	 * @return DateTime[]
 	 */
-	public function findCalculateDate(Range $interval)
+	public function findCalculateDate(Range $interval):array
 	{
 		return $this->mapper->findCalculateDate($interval);
 	}
@@ -41,7 +43,7 @@ class TrackingVisitsRepository extends Repository
 	/**
 	 * Pocet navstev po hodinach ve dni
 	 * @param Range $interval
-	 * @return Result
+	 * @return Result|null
 	 */
 	public function findVisitsHours(Range $interval)
 	{

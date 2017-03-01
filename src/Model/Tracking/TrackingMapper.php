@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace NAttreid\Tracking\Model\Tracking;
 
 use NAttreid\Orm\Structure\Table;
 use NAttreid\Tracking\Model\Mapper;
 use NAttreid\Utils\Range;
 use Nette\Http\Url;
-use Nextras\Dbal\QueryBuilder\QueryBuilder;
 use Nextras\Dbal\Result\Result;
+use stdClass;
 
 /**
  * Tracking Mapper
@@ -23,7 +25,7 @@ class TrackingMapper extends Mapper
 	/** @var int */
 	private $onlineTime;
 
-	public function setup($minTimeBetweenVisits, $onlineTime)
+	public function setup(int $minTimeBetweenVisits, int $onlineTime)
 	{
 		$this->minTimeBetweenVisits = $minTimeBetweenVisits;
 		$this->onlineTime = $onlineTime;
@@ -83,9 +85,9 @@ class TrackingMapper extends Mapper
 	/**
 	 * Vrati posledni navstivenou stranku
 	 * @param string $uid
-	 * @return QueryBuilder
+	 * @return Tracking|null
 	 */
-	public function getLatest($uid)
+	public function getLatest(string $uid)
 	{
 		$builder = $this->builder()
 			->andWhere('[uid] = %s', $uid)
@@ -96,7 +98,7 @@ class TrackingMapper extends Mapper
 
 	/**
 	 * Vrati online uzivatele
-	 * @return Result
+	 * @return Result|null
 	 */
 	public function findCountOnlineUsers()
 	{
@@ -110,8 +112,8 @@ class TrackingMapper extends Mapper
 	/**
 	 * Vrati navstevy po hodinach
 	 * @param Range $interval
-	 * @param boolean $useTime ma se pouzit cas v intervalu
-	 * @return Result
+	 * @param bool $useTime ma se pouzit cas v intervalu
+	 * @return Result|null
 	 */
 	public function findVisitsHours(Range $interval, $useTime = false)
 	{
@@ -129,7 +131,7 @@ class TrackingMapper extends Mapper
 	/**
 	 * Navstevy jednotlivych stranek
 	 * @param Range $interval
-	 * @return \stdClass[]
+	 * @return stdClass[]
 	 */
 	public function findVisitPages(Range $interval)
 	{
@@ -144,7 +146,7 @@ class TrackingMapper extends Mapper
 		$rows = $this->connection->query('SELECT [datefield], [url], COUNT([num]) visits, SUM([num]) views FROM (' . $subQuery . ') sub GROUP BY [url]', $this->getTableName(), $interval->from, $interval->to, $this->minTimeBetweenVisits * 60);
 
 		foreach ($rows as $row) {
-			$data = new \stdClass;
+			$data = new stdClass;
 			$data->datefield = $row->datefield;
 			$data->visits = $row->visits;
 			$data->views = $row->views;

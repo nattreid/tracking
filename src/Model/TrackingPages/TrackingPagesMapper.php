@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace NAttreid\Tracking\Model\TrackingPages;
 
 use DateTime;
+use Generator;
 use NAttreid\Orm\Structure\Table;
 use NAttreid\Tracking\Model\Mapper;
 use NAttreid\Utils\Range;
@@ -17,7 +20,7 @@ use Nextras\Orm\Entity\IEntity;
 class TrackingPagesMapper extends Mapper
 {
 
-	/** @var boolean[] */
+	/** @var bool[] */
 	private $isCalculated = [];
 
 	protected function createTable(Table $table)
@@ -36,7 +39,7 @@ class TrackingPagesMapper extends Mapper
 	/**
 	 * Navstevy jednotlivych stranek
 	 * @param Range $interval
-	 * @return Result
+	 * @return Result|null
 	 */
 	public function findPages(Range $interval)
 	{
@@ -51,9 +54,9 @@ class TrackingPagesMapper extends Mapper
 	/**
 	 * Vrati datum, ktere je treba prepocitat
 	 * @param Range $interval
-	 * @return DateTime[]
+	 * @return DateTime[]|Generator
 	 */
-	public function findCalculateDate(Range $interval)
+	public function findCalculateDate(Range $interval): Generator
 	{
 		if (isset($this->isCalculated[(string)$interval])) {
 			yield null;
@@ -94,9 +97,9 @@ class TrackingPagesMapper extends Mapper
 	 * Vrati entitu podle klice
 	 * @param DateTime $date
 	 * @param string $page
-	 * @return IEntity|TrackingPages
+	 * @return IEntity|TrackingPages|null
 	 */
-	public function getByKey(DateTime $date, $page)
+	public function getByKey(DateTime $date, string $page)
 	{
 		$builder = $this->builder()
 			->andWhere('[datefield] = DATE(%dt)', $date)

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace NAttreid\Tracking\Model\ClickTracking;
 
 use NAttreid\Orm\Repository;
@@ -26,9 +28,9 @@ class ClickTrackingRepository extends Repository
 	 * Pocet kliku po dnech
 	 * @param int $groupId
 	 * @param Range $interval
-	 * @return Result
+	 * @return Result|null
 	 */
-	public function findClicksByDay($groupId, Range $interval)
+	public function findClicksByDay(int $groupId, Range $interval)
 	{
 		return $this->mapper->findClicksByDay($groupId, $interval);
 	}

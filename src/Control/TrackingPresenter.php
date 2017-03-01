@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace NAttreid\Tracking\Control;
 
 use NAttreid\Tracking\Tracking;
@@ -27,7 +29,7 @@ class TrackingPresenter extends Presenter
 	 * @param string $name
 	 * @return string
 	 */
-	private function getPost($name)
+	private function getPost(string $name): string
 	{
 		return $this->getHttpRequest()->getPost($name);
 	}
@@ -49,7 +51,7 @@ class TrackingPresenter extends Presenter
 	/**
 	 * Trackovani kliku
 	 */
-	public function actionclickTrack()
+	public function actionClickTrack()
 	{
 		if ($this->getPost('click')) {
 			$this->tracking->clickTrack();

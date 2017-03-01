@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace NAttreid\Tracking\Model\ClickTracking;
 
 use Nextras\Dbal\Utils\DateTime;

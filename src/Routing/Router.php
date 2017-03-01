@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace NAttreid\Tracking\Routing;
 
 use Nette\Application\Routers\Route;
@@ -18,7 +20,7 @@ class Router extends \NAttreid\Routing\Router
 	/** @var string */
 	private $clickUrl;
 
-	public function __construct($trackUrl, $clickUrl)
+	public function __construct(string $trackUrl, string $clickUrl)
 	{
 		parent::__construct();
 		$this->trackUrl = $trackUrl . '/';

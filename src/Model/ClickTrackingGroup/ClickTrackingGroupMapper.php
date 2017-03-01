@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace NAttreid\Tracking\Model\ClickTrackingGroup;
 
 use NAttreid\Orm\Structure\Table;

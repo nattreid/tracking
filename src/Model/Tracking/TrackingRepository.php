@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace NAttreid\Tracking\Model\Tracking;
 
 use NAttreid\Orm\Repository;
 use NAttreid\Utils\Range;
 use Nextras\Dbal\Result\Result;
+use stdClass;
 
 /**
  * Tracking Repository
@@ -28,7 +31,7 @@ class TrackingRepository extends Repository
 	 * Vrati pocet online uzivatelu
 	 * @return int
 	 */
-	public function onlineUsers()
+	public function onlineUsers(): int
 	{
 		return $this->mapper->findCountOnlineUsers()->fetch()->count;
 	}
@@ -36,8 +39,8 @@ class TrackingRepository extends Repository
 	/**
 	 * Vrati navstevy po hodinach
 	 * @param Range $interval
-	 * @param boolean $useTime ma se pouzit cas v intervalu
-	 * @return Result
+	 * @param bool $useTime ma se pouzit cas v intervalu
+	 * @return Result|null
 	 */
 	public function findVisitsHours(Range $interval, $useTime = false)
 	{
@@ -47,7 +50,7 @@ class TrackingRepository extends Repository
 	/**
 	 * Navstevy jednotlivych stranek
 	 * @param Range $interval
-	 * @return \stdClass[]
+	 * @return stdClass[]
 	 */
 	public function findVisitPages(Range $interval)
 	{

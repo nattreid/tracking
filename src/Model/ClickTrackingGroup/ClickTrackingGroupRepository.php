@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace NAttreid\Tracking\Model\ClickTrackingGroup;
 
 use NAttreid\Orm\Repository;
@@ -20,9 +22,9 @@ class ClickTrackingGroupRepository extends Repository
 	/**
 	 * Vrati radek podle jmena
 	 * @param string $name
-	 * @return ClickTrackingGroup
+	 * @return ClickTrackingGroup|null
 	 */
-	public function getByName($name)
+	public function getByName(string $name)
 	{
 		return $this->getBy(['name' => $name]);
 	}

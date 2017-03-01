@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace NAttreid\Tracking\Model\TrackingVisits;
 
 use DateTime;
+use Generator;
 use NAttreid\Orm\Structure\Table;
 use NAttreid\Tracking\Model\Mapper;
 use NAttreid\Utils\Range;
@@ -17,7 +20,7 @@ use Nextras\Orm\Entity\IEntity;
 class TrackingVisitsMapper extends Mapper
 {
 
-	/** @var boolean[] */
+	/** @var bool[] */
 	private $isCalculated = [];
 
 	protected function createTable(Table $table)
@@ -70,9 +73,9 @@ class TrackingVisitsMapper extends Mapper
 	/**
 	 * Vrati datum, ktere je treba prepocitat
 	 * @param Range $interval
-	 * @return DateTime[]
+	 * @return DateTime[]|Generator
 	 */
-	public function findCalculateDate(Range $interval)
+	public function findCalculateDate(Range $interval): Generator
 	{
 		if (isset($this->isCalculated[(string)$interval])) {
 			yield null;
@@ -112,7 +115,7 @@ class TrackingVisitsMapper extends Mapper
 	/**
 	 * Vrati entitu podle klice
 	 * @param DateTime $date
-	 * @return IEntity|TrackingVisits
+	 * @return IEntity|TrackingVisits|null
 	 */
 	public function getByKey(DateTime $date)
 	{

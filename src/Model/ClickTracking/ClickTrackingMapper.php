@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace NAttreid\Tracking\Model\ClickTracking;
 
 use NAttreid\Orm\Structure\Table;
@@ -65,9 +67,9 @@ class ClickTrackingMapper extends Mapper
 	 * Pocet kliku po dnech
 	 * @param int $groupId
 	 * @param Range $interval
-	 * @return Result
+	 * @return Result|null
 	 */
-	public function findClicksByDay($groupId, Range $interval)
+	public function findClicksByDay(int $groupId, Range $interval)
 	{
 		$builder = $this->builder()
 			->select('DATE([inserted]) date, COUNT([uid]) num, SUM([sumValue]) sum, AVG([averageValue]) avg')
