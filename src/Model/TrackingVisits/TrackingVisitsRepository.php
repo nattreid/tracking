@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace NAttreid\Tracking\Model\TrackingVisits;
 
 use DateTime;
+use Generator;
 use NAttreid\Orm\Repository;
 use NAttreid\Tracking\Model\TrackingPages\TrackingPages;
 use NAttreid\Utils\Range;
@@ -33,9 +34,9 @@ class TrackingVisitsRepository extends Repository
 	/**
 	 * Vrati datum, ktere je treba prepocitat
 	 * @param Range $interval
-	 * @return DateTime[]
+	 * @return DateTime[]|Generator
 	 */
-	public function findCalculateDate(Range $interval):array
+	public function findCalculateDate(Range $interval): Generator
 	{
 		return $this->mapper->findCalculateDate($interval);
 	}

@@ -27,9 +27,9 @@ class TrackingPresenter extends Presenter
 	/**
 	 * Vrati hodnotu promenne z POST, pokud neni vrati null
 	 * @param string $name
-	 * @return string
+	 * @return string|null
 	 */
-	private function getPost(string $name): string
+	private function getPost(string $name)
 	{
 		return $this->getHttpRequest()->getPost($name);
 	}

@@ -88,8 +88,10 @@ class TrackingPagesMapper extends Mapper
 			. 'WHERE [missingDate] NOT IN (' . $visits . ') '
 			. 'AND [missingDate] <= DATE(%dt)', $interval->from, $this->getTableName(), $interval->from, $interval->to, $interval->to);
 
-		foreach ($calculateDates as $date) {
-			yield $date->date;
+		if ($calculateDates) {
+			foreach ($calculateDates as $date) {
+				yield $date->date;
+			}
 		}
 	}
 

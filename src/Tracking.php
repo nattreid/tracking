@@ -53,9 +53,9 @@ class Tracking
 	 * Vrati parametr
 	 * @param string $name
 	 * @param string $default
-	 * @return string
+	 * @return string|null
 	 */
-	private function getParam(string $name, string $default = null): string
+	private function getParam(string $name, string $default = null)
 	{
 		return $this->request->getPost($name, $default);
 	}

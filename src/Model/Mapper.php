@@ -12,7 +12,7 @@ namespace NAttreid\Tracking\Model;
 abstract class Mapper extends \NAttreid\Orm\Mapper
 {
 
-	public function getTablePrefix()
+	public function getTablePrefix(): string
 	{
 		return '_';
 	}
