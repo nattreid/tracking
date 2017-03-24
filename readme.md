@@ -10,7 +10,7 @@ extensions:
 Možné nastavení
 ```neon
 tracking:
-    trackUrl: 'track',
+    trackUrl: 'track'
     clickUrl: 'clickTrack'
     minTimeBetweenVisits: 30 # v minutach
     onlineTime: 3 # v minutach

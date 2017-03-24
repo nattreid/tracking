@@ -1,8 +1,8 @@
 {
-  "name": "tracking",
+  "name": "nattreid-tracking",
   "description": "Tracking for Nette Framework",
   "license": [
-    "Unlicense"
+    "MIT"
   ],
   "authors": [
     {

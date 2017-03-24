@@ -4,10 +4,10 @@
   "main": "gulpfile.js",
   "repository": {
     "type": "git",
-    "url": "git@git.newtravel.cz:nattreid/tracking.git"
+    "url": "git@github.com:nattreid/tracking.git"
   },
   "author": "Attreid",
-  "license": "Unlicense",
+  "license": "MIT",
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-rename": "^1.2.2",
