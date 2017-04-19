@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace NAttreid\Tracking;
 
@@ -55,7 +55,7 @@ class Tracking
 	 * @param string $default
 	 * @return string|null
 	 */
-	private function getParam(string $name, string $default = null)
+	private function getParam(string $name, string $default = null): ?string
 	{
 		return $this->request->getPost($name, $default);
 	}
@@ -72,7 +72,7 @@ class Tracking
 	/**
 	 * Zaznam odchodu ze stranky
 	 */
-	public function leave()
+	public function leave(): void
 	{
 		$track = $this->orm->tracking->getLatest($this->user->getUid());
 
@@ -89,7 +89,7 @@ class Tracking
 	/**
 	 * Zaznam prichodu na stranku
 	 */
-	public function track()
+	public function track(): void
 	{
 		$track = new TrackingEntity;
 
@@ -109,7 +109,7 @@ class Tracking
 	/**
 	 * Zaznam kliku
 	 */
-	public function clickTrack()
+	public function clickTrack(): void
 	{
 		$uid = $this->user->getUid();
 		$click = $this->getParam('click');
@@ -185,7 +185,7 @@ class Tracking
 	 * @param Range $interval
 	 * @return Result|null
 	 */
-	public function findVisitsHours(Range $interval)
+	public function findVisitsHours(Range $interval): ?Result
 	{
 		$this->checkVisits($interval);
 		return $this->orm->trackingVisits->findVisitsHours($interval);
@@ -195,7 +195,7 @@ class Tracking
 	 * Ulozeni zanzamu pokud jeste nejsou prepocitane
 	 * @param Range $interval
 	 */
-	private function checkVisits(Range $interval)
+	private function checkVisits(Range $interval): void
 	{
 		foreach ($this->orm->trackingVisits->findCalculateDate($interval) as $date) {
 			if ($date !== null) {
@@ -235,7 +235,7 @@ class Tracking
 	 * @param Range $interval
 	 * @return Result|null
 	 */
-	public function findClicksByDay(int $groupId, Range $interval)
+	public function findClicksByDay(int $groupId, Range $interval): ?Result
 	{
 		return $this->orm->clickTracking->findClicksByDay($groupId, $interval);
 	}

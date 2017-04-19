@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace NAttreid\Tracking\Model\Tracking;
 
@@ -25,13 +25,13 @@ class TrackingMapper extends Mapper
 	/** @var int */
 	private $onlineTime;
 
-	public function setup(int $minTimeBetweenVisits, int $onlineTime)
+	public function setup(int $minTimeBetweenVisits, int $onlineTime): void
 	{
 		$this->minTimeBetweenVisits = $minTimeBetweenVisits;
 		$this->onlineTime = $onlineTime;
 	}
 
-	protected function createTable(Table $table)
+	protected function createTable(Table $table): void
 	{
 		$table->addColumn('aiid')
 			->int()
@@ -87,7 +87,7 @@ class TrackingMapper extends Mapper
 	 * @param string $uid
 	 * @return Tracking|null
 	 */
-	public function getLatest(string $uid)
+	public function getLatest(string $uid): ?Tracking
 	{
 		$builder = $this->builder()
 			->andWhere('[uid] = %s', $uid)
@@ -100,7 +100,7 @@ class TrackingMapper extends Mapper
 	 * Vrati online uzivatele
 	 * @return Result|null
 	 */
-	public function findCountOnlineUsers()
+	public function findCountOnlineUsers(): ?Result
 	{
 		$builder = $this->builder()
 			->addSelect('COUNT(DISTINCT([uid])) count')
@@ -115,7 +115,7 @@ class TrackingMapper extends Mapper
 	 * @param bool $useTime ma se pouzit cas v intervalu
 	 * @return Result|null
 	 */
-	public function findVisitsHours(Range $interval, $useTime = false)
+	public function findVisitsHours(Range $interval, bool $useTime = false): ?Result
 	{
 		$date = $useTime ? '%dt' : 'DATE(%dt)';
 
@@ -133,7 +133,7 @@ class TrackingMapper extends Mapper
 	 * @param Range $interval
 	 * @return stdClass[]
 	 */
-	public function findVisitPages(Range $interval)
+	public function findVisitPages(Range $interval): array
 	{
 		$result = [];
 		$subQuery = 'SELECT '

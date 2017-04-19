@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace NAttreid\Tracking\Model\ClickTracking;
 
@@ -17,7 +17,7 @@ use Nextras\Dbal\Result\Result;
 class ClickTrackingMapper extends Mapper
 {
 
-	protected function createTable(Table $table)
+	protected function createTable(Table $table): void
 	{
 		$table->addColumn('aiid')
 			->int()
@@ -69,7 +69,7 @@ class ClickTrackingMapper extends Mapper
 	 * @param Range $interval
 	 * @return Result|null
 	 */
-	public function findClicksByDay(int $groupId, Range $interval)
+	public function findClicksByDay(int $groupId, Range $interval): ?Result
 	{
 		$builder = $this->builder()
 			->select('DATE([inserted]) date, COUNT([uid]) num, SUM([sumValue]) sum, AVG([averageValue]) avg')

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace NAttreid\Tracking\Model\ClickTrackingGroup;
 
@@ -14,7 +14,7 @@ use NAttreid\Orm\Repository;
 class ClickTrackingGroupRepository extends Repository
 {
 
-	public static function getEntityClassNames()
+	public static function getEntityClassNames(): array
 	{
 		return [ClickTrackingGroup::class];
 	}
@@ -24,7 +24,7 @@ class ClickTrackingGroupRepository extends Repository
 	 * @param string $name
 	 * @return ClickTrackingGroup|null
 	 */
-	public function getByName(string $name)
+	public function getByName(string $name): ?ClickTrackingGroup
 	{
 		return $this->getBy(['name' => $name]);
 	}

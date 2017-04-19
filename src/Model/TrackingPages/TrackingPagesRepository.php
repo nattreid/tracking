@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace NAttreid\Tracking\Model\TrackingPages;
 
@@ -24,7 +24,7 @@ class TrackingPagesRepository extends Repository
 	/** @var TrackingPagesMapper */
 	protected $mapper;
 
-	public static function getEntityClassNames()
+	public static function getEntityClassNames(): array
 	{
 		return [TrackingPages::class];
 	}

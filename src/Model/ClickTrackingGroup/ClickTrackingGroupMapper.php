@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace NAttreid\Tracking\Model\ClickTrackingGroup;
 
@@ -15,7 +15,7 @@ use NAttreid\Tracking\Model\Mapper;
 class ClickTrackingGroupMapper extends Mapper
 {
 
-	protected function createTable(Table $table)
+	protected function createTable(Table $table): void
 	{
 		$table->addPrimaryKey('id')
 			->int()

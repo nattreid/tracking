@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace NAttreid\Tracking\Model\TrackingVisits;
 
@@ -26,7 +26,7 @@ class TrackingVisitsRepository extends Repository
 	/** @var TrackingVisitsMapper */
 	protected $mapper;
 
-	public static function getEntityClassNames()
+	public static function getEntityClassNames(): array
 	{
 		return [TrackingVisits::class];
 	}
@@ -46,7 +46,7 @@ class TrackingVisitsRepository extends Repository
 	 * @param Range $interval
 	 * @return Result|null
 	 */
-	public function findVisitsHours(Range $interval)
+	public function findVisitsHours(Range $interval): ?Result
 	{
 		return $this->mapper->findVisitsHours($interval);
 	}

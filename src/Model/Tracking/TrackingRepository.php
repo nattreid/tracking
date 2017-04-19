@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace NAttreid\Tracking\Model\Tracking;
 
@@ -22,7 +22,7 @@ class TrackingRepository extends Repository
 	/** @var TrackingMapper */
 	protected $mapper;
 
-	public static function getEntityClassNames()
+	public static function getEntityClassNames(): array
 	{
 		return [Tracking::class];
 	}
@@ -42,7 +42,7 @@ class TrackingRepository extends Repository
 	 * @param bool $useTime ma se pouzit cas v intervalu
 	 * @return Result|null
 	 */
-	public function findVisitsHours(Range $interval, $useTime = false)
+	public function findVisitsHours(Range $interval, bool $useTime = false): ?Result
 	{
 		return $this->mapper->findVisitsHours($interval, $useTime);
 	}
@@ -52,7 +52,7 @@ class TrackingRepository extends Repository
 	 * @param Range $interval
 	 * @return stdClass[]
 	 */
-	public function findVisitPages(Range $interval)
+	public function findVisitPages(Range $interval): array
 	{
 		return $this->mapper->findVisitPages($interval);
 	}

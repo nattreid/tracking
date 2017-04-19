@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace NAttreid\Tracking\Model\TrackingVisits;
 
@@ -23,7 +23,7 @@ class TrackingVisitsMapper extends Mapper
 	/** @var bool[] */
 	private $isCalculated = [];
 
-	protected function createTable(Table $table)
+	protected function createTable(Table $table): void
 	{
 		$table->addPrimaryKey('datefield')
 			->datetime();
@@ -34,9 +34,9 @@ class TrackingVisitsMapper extends Mapper
 	/**
 	 * Pocet navstev po dnech
 	 * @param Range $interval
-	 * @return Result
+	 * @return Result|null
 	 */
-	public function findVisitsDays(Range $interval)
+	public function findVisitsDays(Range $interval): ?Result
 	{
 		$builder = $this->builder()
 			->select('DATE([datefield]) datefield, SUM([visits]) visits')
@@ -48,9 +48,9 @@ class TrackingVisitsMapper extends Mapper
 	/**
 	 * Pocet navstev po hodinach ve dni
 	 * @param Range $interval
-	 * @return Result
+	 * @return Result|null
 	 */
-	public function findVisitsHours(Range $interval)
+	public function findVisitsHours(Range $interval): ?Result
 	{
 		$diffBuilder = $this->builder()
 			->select('DATEDIFF(MAX([datefield]), MIN([datefield])) diff')
@@ -77,10 +77,10 @@ class TrackingVisitsMapper extends Mapper
 	 */
 	public function findCalculateDate(Range $interval): Generator
 	{
-		if (isset($this->isCalculated[(string)$interval])) {
+		if (isset($this->isCalculated[(string) $interval])) {
 			yield null;
 		}
-		$this->isCalculated[(string)$interval] = true;
+		$this->isCalculated[(string) $interval] = true;
 
 		// dopocita posledni den
 		if ($interval->to->format('Y-m-d') === (new DateTime)->format('Y-m-d')) {
@@ -119,7 +119,7 @@ class TrackingVisitsMapper extends Mapper
 	 * @param DateTime $date
 	 * @return IEntity|TrackingVisits|null
 	 */
-	public function getByKey(DateTime $date)
+	public function getByKey(DateTime $date): ?TrackingVisits
 	{
 		$builder = $this->builder()
 			->andWhere('[datefield] = %dt', $date);

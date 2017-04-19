@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace NAttreid\Tracking\Routing;
 
@@ -27,7 +27,7 @@ class Router extends \NAttreid\Routing\Router
 		$this->clickUrl = $clickUrl . '/';
 	}
 
-	public function createRoutes()
+	public function createRoutes(): void
 	{
 		$router = $this->getRouter();
 

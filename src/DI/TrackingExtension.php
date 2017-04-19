@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace NAttreid\Tracking\DI;
 
@@ -26,7 +26,7 @@ class TrackingExtension extends CompilerExtension
 		'onlineTime' => 3
 	];
 
-	public function loadConfiguration()
+	public function loadConfiguration(): void
 	{
 		$builder = $this->getContainerBuilder();
 		$config = $this->validateConfig($this->defaults, $this->getConfig());
@@ -40,7 +40,7 @@ class TrackingExtension extends CompilerExtension
 			->setArguments([$config['trackUrl'], $config['clickUrl']]);
 	}
 
-	public function beforeCompile()
+	public function beforeCompile(): void
 	{
 		$builder = $this->getContainerBuilder();
 		$config = $this->validateConfig($this->defaults, $this->getConfig());

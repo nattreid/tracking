@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace NAttreid\Tracking\Model\TrackingPages;
 
@@ -23,7 +23,7 @@ class TrackingPagesMapper extends Mapper
 	/** @var bool[] */
 	private $isCalculated = [];
 
-	protected function createTable(Table $table)
+	protected function createTable(Table $table): void
 	{
 		$table->addColumn('datefield')
 			->date();
@@ -41,7 +41,7 @@ class TrackingPagesMapper extends Mapper
 	 * @param Range $interval
 	 * @return Result|null
 	 */
-	public function findPages(Range $interval)
+	public function findPages(Range $interval): ?Result
 	{
 		$builder = $this->builder()
 			->select('[page], SUM([visits]) visits, SUM([views]) views')
@@ -58,10 +58,10 @@ class TrackingPagesMapper extends Mapper
 	 */
 	public function findCalculateDate(Range $interval): Generator
 	{
-		if (isset($this->isCalculated[(string)$interval])) {
+		if (isset($this->isCalculated[(string) $interval])) {
 			yield null;
 		}
-		$this->isCalculated[(string)$interval] = true;
+		$this->isCalculated[(string) $interval] = true;
 
 		// dopocita posledni den
 		if ($interval->to->format('Y-m-d') === (new DateTime)->format('Y-m-d')) {
@@ -101,7 +101,7 @@ class TrackingPagesMapper extends Mapper
 	 * @param string $page
 	 * @return IEntity|TrackingPages|null
 	 */
-	public function getByKey(DateTime $date, string $page)
+	public function getByKey(DateTime $date, string $page): ?TrackingPages
 	{
 		$builder = $this->builder()
 			->andWhere('[datefield] = DATE(%dt)', $date)

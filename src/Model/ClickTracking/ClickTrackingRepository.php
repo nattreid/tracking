@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace NAttreid\Tracking\Model\ClickTracking;
 
@@ -19,7 +19,7 @@ class ClickTrackingRepository extends Repository
 	/** @var ClickTrackingMapper */
 	protected $mapper;
 
-	public static function getEntityClassNames()
+	public static function getEntityClassNames(): array
 	{
 		return [ClickTracking::class];
 	}
@@ -30,7 +30,7 @@ class ClickTrackingRepository extends Repository
 	 * @param Range $interval
 	 * @return Result|null
 	 */
-	public function findClicksByDay(int $groupId, Range $interval)
+	public function findClicksByDay(int $groupId, Range $interval): ?Result
 	{
 		return $this->mapper->findClicksByDay($groupId, $interval);
 	}
