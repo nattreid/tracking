@@ -29,7 +29,7 @@ class TrackingPresenter extends Presenter
 	 * @param string $name
 	 * @return string|null
 	 */
-	private function getPost(string $name)
+	private function getPost(string $name): ?string
 	{
 		return $this->getHttpRequest()->getPost($name);
 	}
@@ -37,7 +37,7 @@ class TrackingPresenter extends Presenter
 	/**
 	 * Trackovani navstev
 	 */
-	public function actionTrack()
+	public function actionTrack(): void
 	{
 		if ($this->getPost('leave')) {
 			$this->tracking->leave();
@@ -51,7 +51,7 @@ class TrackingPresenter extends Presenter
 	/**
 	 * Trackovani kliku
 	 */
-	public function actionClickTrack()
+	public function actionClickTrack(): void
 	{
 		if ($this->getPost('click')) {
 			$this->tracking->clickTrack();
