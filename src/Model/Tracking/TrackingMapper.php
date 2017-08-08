@@ -52,7 +52,7 @@ class TrackingMapper extends Mapper
 			->setDefault(null)
 			->setKey();
 		$table->addColumn('browser')
-			->varChar()
+			->varChar(500)
 			->setDefault(null);
 		$table->addColumn('timeOnPage')
 			->int()
