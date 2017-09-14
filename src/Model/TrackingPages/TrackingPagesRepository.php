@@ -36,7 +36,7 @@ class TrackingPagesRepository extends Repository
 	 */
 	public function findCalculateDate(Range $interval): Generator
 	{
-		return $this->mapper->findCalculateDate($interval);
+		yield $this->mapper->findCalculateDate($interval);
 	}
 
 }

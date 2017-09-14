@@ -32,11 +32,11 @@ class TrackingExtension extends CompilerExtension
 		$config = $this->validateConfig($this->defaults, $this->getConfig());
 
 		$builder->addDefinition($this->prefix('tracking'))
-			->setClass(Tracking::class)
+			->setType(Tracking::class)
 			->setArguments([$config['minTimeBetweenVisits']]);
 
 		$builder->addDefinition($this->prefix('router'))
-			->setClass(Router::class)
+			->setType(Router::class)
 			->setArguments([$config['trackUrl'], $config['clickUrl']]);
 	}
 
