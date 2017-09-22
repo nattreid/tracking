@@ -43,8 +43,7 @@ class TrackingMapper extends Mapper
 			->datetime()
 			->setKey();
 		$table->addColumn('url')
-			->varChar(500)
-			->setKey();
+			->varChar(500);
 		$table->addColumn('referer')
 			->varChar();
 		$table->addColumn('ip')
