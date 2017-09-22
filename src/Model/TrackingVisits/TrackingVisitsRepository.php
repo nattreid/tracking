@@ -34,11 +34,11 @@ class TrackingVisitsRepository extends Repository
 	/**
 	 * Vrati datum, ktere je treba prepocitat
 	 * @param Range $interval
-	 * @return DateTime[]|Generator
+	 * @return DateTime[]
 	 */
-	public function findCalculateDate(Range $interval): Generator
+	public function findCalculateDate(Range $interval): array
 	{
-		yield $this->mapper->findCalculateDate($interval);
+		return $this->mapper->findCalculateDate($interval);
 	}
 
 	/**
