@@ -45,7 +45,7 @@ class TrackingMapper extends Mapper
 		$table->addColumn('url')
 			->varChar(500);
 		$table->addColumn('referer')
-			->varChar();
+			->varChar(500);
 		$table->addColumn('ip')
 			->varChar(23)
 			->setDefault(null)
