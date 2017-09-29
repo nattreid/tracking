@@ -47,7 +47,7 @@ class TrackingMapper extends Mapper
 		$table->addColumn('referer')
 			->varChar(500);
 		$table->addColumn('ip')
-			->varChar(23)
+			->varChar(40)
 			->setDefault(null)
 			->setKey();
 		$table->addColumn('browser')
