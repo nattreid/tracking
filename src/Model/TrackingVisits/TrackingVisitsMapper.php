@@ -123,7 +123,7 @@ class TrackingVisitsMapper extends Mapper
 	public function getByKey(DateTime $date): ?TrackingVisits
 	{
 		$builder = $this->builder()
-			->andWhere('[datefield] = %dt', $date);
+			->andWhere('[datefield] = %dts', $date);
 		return $this->fetch($builder);
 	}
 
