@@ -32,7 +32,7 @@ class TrackingPagesRepository extends Repository
 	/**
 	 * Vrati datum, ktere je treba prepocitat
 	 * @param Range $interval
-	 * @return DateTime[]|Generator
+	 * @return DateTime[]
 	 */
 	public function findCalculateDate(Range $interval): array
 	{

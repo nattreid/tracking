@@ -7,6 +7,7 @@ namespace NAttreid\Tracking\Model\ClickTracking;
 use NAttreid\Orm\Structure\Table;
 use NAttreid\Tracking\Model\Mapper;
 use NAttreid\Utils\Range;
+use Nextras\Dbal\QueryException;
 use Nextras\Dbal\Result\Result;
 
 /**
@@ -68,6 +69,7 @@ class ClickTrackingMapper extends Mapper
 	 * @param int $groupId
 	 * @param Range $interval
 	 * @return Result|null
+	 * @throws QueryException
 	 */
 	public function findClicksByDay(int $groupId, Range $interval): ?Result
 	{

@@ -8,9 +8,9 @@ use DateTime;
 use NAttreid\Orm\Structure\Table;
 use NAttreid\Tracking\Model\Mapper;
 use NAttreid\Utils\Range;
+use Nextras\Dbal\QueryException;
 use Nextras\Dbal\Result\Result;
 use Nextras\Orm\Entity\IEntity;
-use Tracy\Debugger;
 
 /**
  * TrackingVisits Mapper
@@ -35,6 +35,7 @@ class TrackingVisitsMapper extends Mapper
 	 * Pocet navstev po dnech
 	 * @param Range $interval
 	 * @return Result|null
+	 * @throws QueryException
 	 */
 	public function findVisitsDays(Range $interval): ?Result
 	{
@@ -49,6 +50,7 @@ class TrackingVisitsMapper extends Mapper
 	 * Pocet navstev po hodinach ve dni
 	 * @param Range $interval
 	 * @return Result|null
+	 * @throws QueryException
 	 */
 	public function findVisitsHours(Range $interval): ?Result
 	{
@@ -74,6 +76,7 @@ class TrackingVisitsMapper extends Mapper
 	 * Vrati datum, ktere je treba prepocitat
 	 * @param Range $interval
 	 * @return DateTime[]
+	 * @throws QueryException
 	 */
 	public function findCalculateDate(Range $interval): array
 	{

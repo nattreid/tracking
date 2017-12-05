@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace NAttreid\Tracking\Model\TrackingPages;
 
 use DateTime;
-use Generator;
 use NAttreid\Orm\Structure\Table;
 use NAttreid\Tracking\Model\Mapper;
 use NAttreid\Utils\Range;
+use Nextras\Dbal\QueryException;
 use Nextras\Dbal\Result\Result;
 use Nextras\Orm\Entity\IEntity;
 
@@ -40,6 +40,7 @@ class TrackingPagesMapper extends Mapper
 	 * Navstevy jednotlivych stranek
 	 * @param Range $interval
 	 * @return Result|null
+	 * @throws QueryException
 	 */
 	public function findPages(Range $interval): ?Result
 	{
@@ -55,6 +56,7 @@ class TrackingPagesMapper extends Mapper
 	 * Vrati datum, ktere je treba prepocitat
 	 * @param Range $interval
 	 * @return DateTime[]
+	 * @throws QueryException
 	 */
 	public function findCalculateDate(Range $interval): array
 	{

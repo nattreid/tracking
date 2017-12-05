@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace NAttreid\Tracking\Control;
 
 use NAttreid\Tracking\Tracking;
+use Nette\Application\AbortException;
 use Nette\Application\UI\Presenter;
 
 /**
@@ -36,6 +37,7 @@ class TrackingPresenter extends Presenter
 
 	/**
 	 * Trackovani navstev
+	 * @throws AbortException
 	 */
 	public function actionTrack(): void
 	{
@@ -50,6 +52,7 @@ class TrackingPresenter extends Presenter
 
 	/**
 	 * Trackovani kliku
+	 * @throws AbortException
 	 */
 	public function actionClickTrack(): void
 	{
