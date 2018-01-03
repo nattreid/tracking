@@ -8,6 +8,7 @@ use DateTime;
 use NAttreid\Orm\Repository;
 use NAttreid\Tracking\Model\TrackingPages\TrackingPages;
 use NAttreid\Utils\Range;
+use Nextras\Dbal\QueryException;
 use Nextras\Dbal\Result\Result;
 use Nextras\Orm\Collection\ICollection;
 
@@ -15,7 +16,7 @@ use Nextras\Orm\Collection\ICollection;
  * TrackingVisits Repository
  *
  * @method ICollection|TrackingVisits[] findVisitsDays(Range $interval)
- * @method TrackingPages getByKey(DateTime $date)
+ * @method TrackingVisits getByKey(DateTime $date)
  *
  * @author Attreid <attreid@gmail.com>
  */
@@ -34,6 +35,7 @@ class TrackingVisitsRepository extends Repository
 	 * Vrati datum, ktere je treba prepocitat
 	 * @param Range $interval
 	 * @return DateTime[]
+	 * @throws QueryException
 	 */
 	public function findCalculateDate(Range $interval): array
 	{
@@ -44,6 +46,7 @@ class TrackingVisitsRepository extends Repository
 	 * Pocet navstev po hodinach ve dni
 	 * @param Range $interval
 	 * @return Result|null
+	 * @throws QueryException
 	 */
 	public function findVisitsHours(Range $interval): ?Result
 	{

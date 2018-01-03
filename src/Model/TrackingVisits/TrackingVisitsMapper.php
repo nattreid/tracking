@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace NAttreid\Tracking\Model\TrackingVisits;
 
 use DateTime;
+use DateTimeInterface;
 use NAttreid\Orm\Structure\Table;
 use NAttreid\Tracking\Model\Mapper;
 use NAttreid\Utils\Range;
 use Nextras\Dbal\QueryException;
 use Nextras\Dbal\Result\Result;
+use Nextras\Orm\Collection\ICollection;
 use Nextras\Orm\Entity\IEntity;
 
 /**
@@ -34,16 +36,15 @@ class TrackingVisitsMapper extends Mapper
 	/**
 	 * Pocet navstev po dnech
 	 * @param Range $interval
-	 * @return Result|null
-	 * @throws QueryException
+	 * @return ICollection|TrackingVisits[]
 	 */
-	public function findVisitsDays(Range $interval): ?Result
+	public function findVisitsDays(Range $interval): ?ICollection
 	{
 		$builder = $this->builder()
 			->select('DATE([datefield]) datefield, SUM([visits]) visits')
 			->andWhere('DATE([datefield]) BETWEEN DATE(%dt) AND DATE(%dt)', $interval->from, $interval->to)
 			->addGroupBy('DATE([datefield])');
-		return $this->execute($builder);
+		return $this->toCollection($builder);
 	}
 
 	/**
@@ -120,14 +121,14 @@ class TrackingVisitsMapper extends Mapper
 
 	/**
 	 * Vrati entitu podle klice
-	 * @param DateTime $date
+	 * @param DateTimeInterface $date
 	 * @return IEntity|TrackingVisits|null
 	 */
-	public function getByKey(DateTime $date): ?TrackingVisits
+	public function getByKey(DateTimeInterface $date): ?TrackingVisits
 	{
 		$builder = $this->builder()
 			->andWhere('[datefield] = %dts', $date);
-		return $this->fetch($builder);
+		return $this->toEntity($builder);
 	}
 
 }

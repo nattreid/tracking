@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace NAttreid\Tracking\Model\Tracking;
 
-use Nette\Utils\DateTime;
+use Nextras\Dbal\Utils\DateTimeImmutable;
 use Nextras\Orm\Entity\Entity;
 
 /**
@@ -13,7 +13,7 @@ use Nextras\Orm\Entity\Entity;
  * @property mixed $id {primary-proxy}
  * @property int $aiid {primary}
  * @property string $uid
- * @property DateTime $inserted {primary}
+ * @property DateTimeImmutable $inserted {primary}
  * @property string $url
  * @property string $referer
  * @property string|null $ip

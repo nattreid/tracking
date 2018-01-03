@@ -93,7 +93,7 @@ class TrackingMapper extends Mapper
 			->andWhere('[uid] = %s', $uid)
 			->orderBy('inserted DESC')
 			->limitBy(1);
-		return $this->toCollection($builder)->fetch();
+		return $this->toEntity($builder);
 	}
 
 	/**

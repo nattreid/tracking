@@ -6,6 +6,7 @@ namespace NAttreid\Tracking\Model\Tracking;
 
 use NAttreid\Orm\Repository;
 use NAttreid\Utils\Range;
+use Nextras\Dbal\QueryException;
 use Nextras\Dbal\Result\Result;
 use stdClass;
 
@@ -30,6 +31,7 @@ class TrackingRepository extends Repository
 	/**
 	 * Vrati pocet online uzivatelu
 	 * @return int
+	 * @throws QueryException
 	 */
 	public function onlineUsers(): int
 	{
@@ -41,6 +43,7 @@ class TrackingRepository extends Repository
 	 * @param Range $interval
 	 * @param bool $useTime ma se pouzit cas v intervalu
 	 * @return Result|null
+	 * @throws QueryException
 	 */
 	public function findVisitsHours(Range $interval, bool $useTime = false): ?Result
 	{
@@ -51,6 +54,7 @@ class TrackingRepository extends Repository
 	 * Navstevy jednotlivych stranek
 	 * @param Range $interval
 	 * @return stdClass[]
+	 * @throws QueryException
 	 */
 	public function findVisitPages(Range $interval): array
 	{

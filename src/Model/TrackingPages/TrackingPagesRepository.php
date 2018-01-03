@@ -8,6 +8,7 @@ use DateTime;
 use Generator;
 use NAttreid\Orm\Repository;
 use NAttreid\Utils\Range;
+use Nextras\Dbal\QueryException;
 use Nextras\Orm\Collection\ICollection;
 
 /**
@@ -33,6 +34,7 @@ class TrackingPagesRepository extends Repository
 	 * Vrati datum, ktere je treba prepocitat
 	 * @param Range $interval
 	 * @return DateTime[]
+	 * @throws QueryException
 	 */
 	public function findCalculateDate(Range $interval): array
 	{

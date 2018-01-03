@@ -15,6 +15,7 @@ use NAttreid\Utils\Range;
 use Nette\Http\IRequest;
 use Nette\SmartObject;
 use Nette\Utils\DateTime;
+use Nextras\Dbal\QueryException;
 use Nextras\Dbal\Result\Result;
 use Nextras\Orm\Collection\ICollection;
 use Nextras\Orm\Model\Model;
@@ -63,6 +64,7 @@ class Tracking
 	/**
 	 * Vrati pocet online uzivatelu
 	 * @return int
+	 * @throws QueryException
 	 */
 	public function onlineUsers(): int
 	{
@@ -138,16 +140,16 @@ class Tracking
 	 *
 	 * @param Range $interval
 	 * @return ICollection|TrackingPages[]
+	 * @throws QueryException
 	 */
 	public function findPages(Range $interval): ICollection
 	{
 		foreach ($this->orm->trackingPages->findCalculateDate($interval) as $date) {
 			if ($date !== null) {
 				$date->setTime(0, 0, 0);
-				$to = clone $date;
-				$to->modify('+23 HOUR');
-				$to->modify('+59 MINUTE');
-				$to->modify('+59 SECONDS');
+				$to = $date->modify('+23 hour');
+				$to = $to->modify('+59 minute');
+				$to = $to->modify('+59 second');
 
 				$pages = $this->orm->tracking->findVisitPages(new Range($date, $to));
 				foreach ($pages as $row) {
@@ -173,6 +175,7 @@ class Tracking
 	 * Pocet navstev po dnech
 	 * @param Range $interval
 	 * @return ICollection|TrackingVisits[]
+	 * @throws QueryException
 	 */
 	public function findVisitsDays(Range $interval): ICollection
 	{
@@ -184,6 +187,7 @@ class Tracking
 	 * Pocet navstev po hodinach ve dni
 	 * @param Range $interval
 	 * @return Result|null
+	 * @throws QueryException
 	 */
 	public function findVisitsHours(Range $interval): ?Result
 	{
@@ -194,27 +198,27 @@ class Tracking
 	/**
 	 * Ulozeni zanzamu pokud jeste nejsou prepocitane
 	 * @param Range $interval
+	 * @throws QueryException
 	 */
 	private function checkVisits(Range $interval): void
 	{
 		foreach ($this->orm->trackingVisits->findCalculateDate($interval) as $date) {
 			if ($date !== null) {
 				$date->setTime(0, 0, 0);
-				$to = clone $date;
-				$to->modify('+23 HOUR');
-				$to->modify('+59 MINUTE');
-				$to->modify('+59 SECONDS');
+				$to = $date->modify('+23 hour');
+				$to = $to->modify('+59 minute');
+				$to = $to->modify('+59 second');
 
 				$pages = $this->orm->tracking->findVisitsHours(new Range($date, $to), true);
 				foreach ($pages as $row) {
-					$tp = $this->orm->trackingVisits->getByKey(new \DateTime($row->datefield));
-					if ($tp === null) {
-						$tp = new TrackingVisits;
+					$trackingVisits = $this->orm->trackingVisits->getByKey(new \DateTime($row->datefield));
+					if ($trackingVisits === null) {
+						$trackingVisits = new TrackingVisits;
 					}
-					$tp->datefield = $row->datefield;
-					$tp->visits = $row->visits;
+					$trackingVisits->datefield = $row->datefield;
+					$trackingVisits->visits = $row->visits;
 
-					$this->orm->persistAndFlush($tp);
+					$this->orm->persistAndFlush($trackingVisits);
 				}
 			}
 		}

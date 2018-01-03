@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace NAttreid\Tracking\Model\TrackingPages;
 
 use DateTime;
+use DateTimeInterface;
 use NAttreid\Orm\Structure\Table;
 use NAttreid\Tracking\Model\Mapper;
 use NAttreid\Utils\Range;
 use Nextras\Dbal\QueryException;
 use Nextras\Dbal\Result\Result;
+use Nextras\Orm\Collection\ICollection;
 use Nextras\Orm\Entity\IEntity;
 
 /**
@@ -39,17 +41,16 @@ class TrackingPagesMapper extends Mapper
 	/**
 	 * Navstevy jednotlivych stranek
 	 * @param Range $interval
-	 * @return Result|null
-	 * @throws QueryException
+	 * @return ICollection|TrackingPages[]
 	 */
-	public function findPages(Range $interval): ?Result
+	public function findPages(Range $interval): ?ICollection
 	{
 		$builder = $this->builder()
 			->select('[page], SUM([visits]) visits, SUM([views]) views')
 			->andWhere('[datefield] BETWEEN DATE(%dt) AND DATE(%dt)', $interval->from, $interval->to)
 			->groupBy('[page]')
 			->addOrderBy('[visits] DESC, [views] DESC, [page]');
-		return $this->execute($builder);
+		return $this->toCollection($builder);
 	}
 
 	/**
@@ -100,16 +101,16 @@ class TrackingPagesMapper extends Mapper
 
 	/**
 	 * Vrati entitu podle klice
-	 * @param DateTime $date
+	 * @param DateTimeInterface $date
 	 * @param string $page
 	 * @return IEntity|TrackingPages|null
 	 */
-	public function getByKey(DateTime $date, string $page): ?TrackingPages
+	public function getByKey(DateTimeInterface $date, string $page): ?TrackingPages
 	{
 		$builder = $this->builder()
 			->andWhere('[datefield] = DATE(%dt)', $date)
 			->andWhere('[page] = %s', $page);
-		return $this->fetch($builder);
+		return $this->toEntity($builder);
 	}
 
 }
