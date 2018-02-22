@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace NAttreid\Tracking\Model\Tracking;
 
-use Nextras\Dbal\Utils\DateTimeImmutable;
+use DateTimeImmutable;
 use Nextras\Orm\Entity\Entity;
 
 /**
