@@ -25,7 +25,7 @@ orm:
 
 Použítí
 ```php
-/** @var \Nattreid\Tracking\Tracking @inject */
+/** @var \NAttreid\Tracking\Tracking @inject */
 public $tracking;
 ```
 
