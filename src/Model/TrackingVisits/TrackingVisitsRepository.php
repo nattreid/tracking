@@ -17,40 +17,16 @@ use Nextras\Orm\Collection\ICollection;
  *
  * @method ICollection|TrackingVisits[] findVisitsDays(Range $interval)
  * @method TrackingVisits getByKey(DateTime $date)
+ * @method DateTime[] findCalculateDate(Range $interval) Vrati datum, ktere je treba prepocitat
+ * @method Result|null findVisitsHours(Range $interval) Pocet navstev po hodinach ve dni
  *
  * @author Attreid <attreid@gmail.com>
  */
 class TrackingVisitsRepository extends Repository
 {
 
-	/** @var TrackingVisitsMapper */
-	protected $mapper;
-
 	public static function getEntityClassNames(): array
 	{
 		return [TrackingVisits::class];
 	}
-
-	/**
-	 * Vrati datum, ktere je treba prepocitat
-	 * @param Range $interval
-	 * @return DateTime[]
-	 * @throws QueryException
-	 */
-	public function findCalculateDate(Range $interval): array
-	{
-		return $this->mapper->findCalculateDate($interval);
-	}
-
-	/**
-	 * Pocet navstev po hodinach ve dni
-	 * @param Range $interval
-	 * @return Result|null
-	 * @throws QueryException
-	 */
-	public function findVisitsHours(Range $interval): ?Result
-	{
-		return $this->mapper->findVisitsHours($interval);
-	}
-
 }

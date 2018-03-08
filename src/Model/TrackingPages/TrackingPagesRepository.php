@@ -15,30 +15,16 @@ use Nextras\Orm\Collection\ICollection;
  * TrackingPages Repository
  *
  * @method ICollection|TrackingPages[] findPages(Range $interval)
- * @method TrackingPages getByKey(DateTime $date, $page)
+ * @method TrackingPages getByKey(DateTime $date, string $page)
+ * @method DateTime[] findCalculateDate(Range $interval) Vrati datum, ktere je treba prepocitat
  *
  * @author Attreid <attreid@gmail.com>
  */
 class TrackingPagesRepository extends Repository
 {
 
-	/** @var TrackingPagesMapper */
-	protected $mapper;
-
 	public static function getEntityClassNames(): array
 	{
 		return [TrackingPages::class];
 	}
-
-	/**
-	 * Vrati datum, ktere je treba prepocitat
-	 * @param Range $interval
-	 * @return DateTime[]
-	 * @throws QueryException
-	 */
-	public function findCalculateDate(Range $interval): array
-	{
-		return $this->mapper->findCalculateDate($interval);
-	}
-
 }

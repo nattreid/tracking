@@ -15,50 +15,18 @@ use stdClass;
  *
  * @method Tracking getLatest($uid)
  *
+ * @method int onlineUsers() Vrati online uzivatele
+ * @method Result|null findVisitsHours(Range $interval, bool $useTime = false) Vrati navstevy po hodinach
+ * @method stdClass[] findVisitPages(Range $interval) Navstevy jednotlivych stranek
+ * @method void updateTimeOnPage(int $aiid, int $timeOnPage)
+ *
  * @author Attreid <attreid@gmail.com>
  */
 class TrackingRepository extends Repository
 {
 
-	/** @var TrackingMapper */
-	protected $mapper;
-
 	public static function getEntityClassNames(): array
 	{
 		return [Tracking::class];
 	}
-
-	/**
-	 * Vrati pocet online uzivatelu
-	 * @return int
-	 * @throws QueryException
-	 */
-	public function onlineUsers(): int
-	{
-		return $this->mapper->findCountOnlineUsers()->fetch()->count;
-	}
-
-	/**
-	 * Vrati navstevy po hodinach
-	 * @param Range $interval
-	 * @param bool $useTime ma se pouzit cas v intervalu
-	 * @return Result|null
-	 * @throws QueryException
-	 */
-	public function findVisitsHours(Range $interval, bool $useTime = false): ?Result
-	{
-		return $this->mapper->findVisitsHours($interval, $useTime);
-	}
-
-	/**
-	 * Navstevy jednotlivych stranek
-	 * @param Range $interval
-	 * @return stdClass[]
-	 * @throws QueryException
-	 */
-	public function findVisitPages(Range $interval): array
-	{
-		return $this->mapper->findVisitPages($interval);
-	}
-
 }

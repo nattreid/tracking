@@ -98,16 +98,16 @@ class TrackingMapper extends Mapper
 
 	/**
 	 * Vrati online uzivatele
-	 * @return Result|null
+	 * @return int
 	 * @throws QueryException
 	 */
-	public function findCountOnlineUsers(): ?Result
+	public function onlineUsers(): int
 	{
 		$builder = $this->builder()
 			->addSelect('COUNT(DISTINCT([uid])) count')
 			->andWhere('[inserted] > %dt', (new \DateTime)->modify('-' . $this->onlineTime . ' minute'))
 			->andWhere('[timeOnPage] IS NOT null');
-		return $this->execute($builder);
+		return $this->execute($builder)->fetch()->count;
 	}
 
 	/**
@@ -167,4 +167,10 @@ class TrackingMapper extends Mapper
 		return $result;
 	}
 
+	public function updateTimeOnPage(int $aiid, int $timeOnPage): void
+	{
+		$this->connection->query('UPDATE %table SET %set WHERE [aiid] = %i', $this->getTableName(), [
+			'timeOnPage' => $timeOnPage
+		], $aiid);
+	}
 }

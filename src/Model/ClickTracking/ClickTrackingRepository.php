@@ -11,28 +11,15 @@ use Nextras\Dbal\Result\Result;
 /**
  * ClickTracking Repository
  *
+ * @method Result|null findClicksByDay(int $groupId, Range $interval)  Pocet kliku po dnech
+ *
  * @author Attreid <attreid@gmail.com>
  */
 class ClickTrackingRepository extends Repository
 {
 
-	/** @var ClickTrackingMapper */
-	protected $mapper;
-
 	public static function getEntityClassNames(): array
 	{
 		return [ClickTracking::class];
 	}
-
-	/**
-	 * Pocet kliku po dnech
-	 * @param int $groupId
-	 * @param Range $interval
-	 * @return Result|null
-	 */
-	public function findClicksByDay(int $groupId, Range $interval): ?Result
-	{
-		return $this->mapper->findClicksByDay($groupId, $interval);
-	}
-
 }
