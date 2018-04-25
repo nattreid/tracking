@@ -18,7 +18,6 @@ use stdClass;
  * @method int onlineUsers() Vrati online uzivatele
  * @method Result|null findVisitsHours(Range $interval, bool $useTime = false) Vrati navstevy po hodinach
  * @method stdClass[] findVisitPages(Range $interval) Navstevy jednotlivych stranek
- * @method void updateTimeOnPage(int $aiid, int $timeOnPage)
  *
  * @author Attreid <attreid@gmail.com>
  */

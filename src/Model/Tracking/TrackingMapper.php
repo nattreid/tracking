@@ -10,6 +10,7 @@ use NAttreid\Utils\Range;
 use Nette\Http\Url;
 use Nextras\Dbal\QueryException;
 use Nextras\Dbal\Result\Result;
+use Nextras\Orm\Entity\IEntity;
 use stdClass;
 
 /**
@@ -167,10 +168,31 @@ class TrackingMapper extends Mapper
 		return $result;
 	}
 
-	public function updateTimeOnPage(int $aiid, int $timeOnPage): void
+	/**
+	 * @param IEntity|Tracking $entity
+	 * @return array
+	 * @throws QueryException
+	 */
+	public function persist(IEntity $entity)
 	{
-		$this->connection->query('UPDATE %table SET %set WHERE [aiid] = %i', $this->getTableName(), [
-			'timeOnPage' => $timeOnPage
-		], $aiid);
+		if (!$entity->isPersisted()) {
+			return parent::persist($entity);
+		} else {
+			$this->connection->query('UPDATE %table SET %set WHERE [aiid] = %i',
+				$this->getTableName(), [
+					'uid' => $entity->uid,
+					'inserted' => $entity->inserted,
+					'url' => $entity->url,
+					'referer' => $entity->referer,
+					'ip' => $entity->ip,
+					'browser' => $entity->browser,
+					'timeOnPage' => $entity->timeOnPage,
+					'utmSource' => $entity->utmSource,
+					'utmMedium' => $entity->utmMedium,
+					'utmCampaign' => $entity->utmCampaign,
+				],
+				$entity->aiid);
+			return [$entity->aiid, $entity->inserted];
+		}
 	}
 }

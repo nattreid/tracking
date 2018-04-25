@@ -27,10 +27,5 @@ use Nextras\Orm\Entity\Entity;
  */
 class Tracking extends Entity
 {
-	public function setTimeOnPage(int $timeOnPage): void
-	{
-		/* @var $repository TrackingRepository */
-		$repository = $this->getRepository();
-		$repository->updateTimeOnPage($this->aiid, $timeOnPage);
-	}
+
 }

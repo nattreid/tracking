@@ -113,4 +113,24 @@ class TrackingPagesMapper extends Mapper
 		return $this->toEntity($builder);
 	}
 
+	/**
+	 * @param IEntity|TrackingPages $entity
+	 * @return array
+	 * @throws QueryException
+	 */
+	public function persist(IEntity $entity)
+	{
+		if (!$entity->isPersisted()) {
+			return parent::persist($entity);
+		} else {
+			$this->connection->query('UPDATE %table SET %set WHERE [datefield] = DATE(%dt) AND [page] = %s',
+				$this->getTableName(), [
+					'visits' => $entity->visits,
+					'views' => $entity->views
+				],
+				$entity->datefield,
+				$entity->page);
+			return [$entity->datefield, $entity->page];
+		}
+	}
 }

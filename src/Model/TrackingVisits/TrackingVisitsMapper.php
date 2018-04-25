@@ -131,4 +131,23 @@ class TrackingVisitsMapper extends Mapper
 		return $this->toEntity($builder);
 	}
 
+	/**
+	 * @param IEntity|TrackingVisits $entity
+	 * @return array
+	 * @throws QueryException
+	 */
+	public function persist(IEntity $entity)
+	{
+		if (!$entity->isPersisted()) {
+			return parent::persist($entity);
+		} else {
+			$this->connection->query('UPDATE %table SET %set WHERE [datefield] = %dts',
+				$this->getTableName(), [
+					'visits' => $entity->visits
+				],
+				$entity->datefield);
+			return [$entity->datefield];
+		}
+	}
+
 }

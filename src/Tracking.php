@@ -82,7 +82,8 @@ class Tracking
 			$timeOnPage = time() - $track->inserted->getTimestamp();
 
 			if ($timeOnPage < ($this->minTimeBetweenVisits * 60)) {
-				$track->setTimeOnPage($timeOnPage);
+				$track->timeOnPage = $timeOnPage;
+				$this->orm->persistAndFlush($track);
 			}
 		}
 	}
@@ -167,6 +168,7 @@ class Tracking
 		}
 		$this->orm->flush();
 
+		$this->orm->refreshAll(true);
 		return $this->orm->trackingPages->findPages($interval);
 	}
 
