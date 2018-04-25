@@ -175,10 +175,10 @@ class Tracking
 	/**
 	 * Pocet navstev po dnech
 	 * @param Range $interval
-	 * @return ICollection|TrackingVisits[]
+	 * @return Result|null
 	 * @throws QueryException
 	 */
-	public function findVisitsDays(Range $interval): ICollection
+	public function findVisitsDays(Range $interval): ?Result
 	{
 		$this->checkVisits($interval);
 		return $this->orm->trackingVisits->findVisitsDays($interval);
