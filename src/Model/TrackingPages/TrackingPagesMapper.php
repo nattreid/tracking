@@ -66,7 +66,7 @@ class TrackingPagesMapper extends Mapper
 			$this->isCalculated[(string) $interval] = true;
 
 			// dopocita posledni den
-			if ($interval->to->format('Y-m-d') === (new DateTime)->format('Y-m-d')) {
+			if ($interval->to->format('Y-m-d') >= (new DateTime)->format('Y-m-d')) {
 				$last = $this->connection->query('SELECT MAX([datefield]) datefield FROM %table', $this->getTableName())->fetch();
 				if ($last) {
 					$result[] = $last->datefield;

@@ -195,7 +195,7 @@ class Tracking
 	}
 
 	/**
-	 * Ulozeni zanzamu pokud jeste nejsou prepocitane
+	 * Ulozeni zaznamu pokud jeste nejsou prepocitane
 	 * @param Range $interval
 	 * @throws QueryException
 	 */
@@ -203,7 +203,7 @@ class Tracking
 	{
 		foreach ($this->orm->trackingVisits->findCalculateDate($interval) as $date) {
 			if ($date !== null) {
-				$date->setTime(0, 0, 0);
+				$date = $date->setTime(0, 0, 0);
 				$to = $date->modify('+23 hour');
 				$to = $to->modify('+59 minute');
 				$to = $to->modify('+59 second');
@@ -221,6 +221,7 @@ class Tracking
 				}
 			}
 		}
+		$this->orm->refreshAll(true);
 	}
 
 	/**
