@@ -36,15 +36,16 @@ class TrackingVisitsMapper extends Mapper
 	/**
 	 * Pocet navstev po dnech
 	 * @param Range $interval
-	 * @return ICollection|TrackingVisits[]
+	 * @return Result|null
+	 * @throws QueryException
 	 */
-	public function findVisitsDays(Range $interval): ?ICollection
+	public function findVisitsDays(Range $interval): ?Result
 	{
 		$builder = $this->builder()
 			->select('DATE([datefield]) datefield, SUM([visits]) visits')
 			->andWhere('DATE([datefield]) BETWEEN DATE(%dt) AND DATE(%dt)', $interval->from, $interval->to)
 			->addGroupBy('DATE([datefield])');
-		return $this->toCollection($builder);
+		return $this->execute($builder);
 	}
 
 	/**

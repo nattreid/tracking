@@ -15,7 +15,7 @@ use Nextras\Orm\Collection\ICollection;
 /**
  * TrackingVisits Repository
  *
- * @method ICollection|TrackingVisits[] findVisitsDays(Range $interval)
+ * @method Result|null findVisitsDays(Range $interval)
  * @method TrackingVisits getByKey(DateTime $date)
  * @method DateTime[] findCalculateDate(Range $interval) Vrati datum, ktere je treba prepocitat
  * @method Result|null findVisitsHours(Range $interval) Pocet navstev po hodinach ve dni
