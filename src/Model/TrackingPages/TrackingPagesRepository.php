@@ -14,7 +14,7 @@ use Nextras\Orm\Collection\ICollection;
 /**
  * TrackingPages Repository
  *
- * @method ICollection|TrackingPages[] findPages(Range $interval)
+ * @method Result|null findPages(Range $interval)
  * @method TrackingPages getByKey(DateTime $date, string $page)
  * @method DateTime[] findCalculateDate(Range $interval) Vrati datum, ktere je treba prepocitat
  *

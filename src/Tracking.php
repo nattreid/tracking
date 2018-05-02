@@ -139,10 +139,10 @@ class Tracking
 	/**
 	 *
 	 * @param Range $interval
-	 * @return ICollection|TrackingPages[]
+	 * @return ?Result
 	 * @throws QueryException
 	 */
-	public function findPages(Range $interval): ICollection
+	public function findPages(Range $interval): ?Result
 	{
 		foreach ($this->orm->trackingPages->findCalculateDate($interval) as $date) {
 			if ($date !== null) {

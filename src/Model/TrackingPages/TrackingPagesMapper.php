@@ -41,16 +41,16 @@ class TrackingPagesMapper extends Mapper
 	/**
 	 * Navstevy jednotlivych stranek
 	 * @param Range $interval
-	 * @return ICollection|TrackingPages[]
+	 * @return ?Result
 	 */
-	public function findPages(Range $interval): ?ICollection
+	public function findPages(Range $interval): ?Result
 	{
 		$builder = $this->builder()
 			->select('[page], SUM([visits]) visits, SUM([views]) views')
 			->andWhere('[datefield] BETWEEN DATE(%dt) AND DATE(%dt)', $interval->from, $interval->to)
 			->groupBy('[page]')
 			->addOrderBy('[visits] DESC, [views] DESC, [page]');
-		return $this->toCollection($builder);
+		return $this->execute($builder);
 	}
 
 	/**
