@@ -33,6 +33,9 @@ class Tracking
 	/** @var int */
 	private $minTimeBetweenVisits;
 
+	/** @var bool */
+	private $anonymizeIp;
+
 	/** @var Orm */
 	private $orm;
 
@@ -42,9 +45,10 @@ class Tracking
 	/** @var IRequest */
 	private $request;
 
-	public function __construct(int $minTimeBetweenVisits, Model $orm, User $user, IRequest $request)
+	public function __construct(int $minTimeBetweenVisits, bool $anonymizeIp, Model $orm, User $user, IRequest $request)
 	{
 		$this->minTimeBetweenVisits = $minTimeBetweenVisits;
+		$this->anonymizeIp = $anonymizeIp;
 		$this->orm = $orm;
 		$this->user = $user;
 		$this->request = $request;
@@ -59,6 +63,17 @@ class Tracking
 	private function getParam(string $name, string $default = null): ?string
 	{
 		return $this->request->getPost($name, $default);
+	}
+
+	private function getIp(): string
+	{
+		$ip = $this->request->getRemoteAddress();
+		if ($ip) {
+			if ($this->anonymizeIp) {
+				$ip = preg_replace(['/\.\d*$/', '/[\da-f]*:[\da-f]*$/'], ['.0', '0:0'], $ip);
+			}
+		}
+		return $ip;
 	}
 
 	/**
@@ -99,7 +114,7 @@ class Tracking
 		$track->inserted = new DateTime;
 		$track->url = $this->getParam('url');
 		$track->referer = $this->getParam('referer');
-		$track->ip = $this->request->getRemoteAddress();
+		$track->ip = $this->getIp();
 		$track->browser = $this->getParam('browser');
 		$track->utmSource = $this->getParam('utm_source');
 		$track->utmMedium = $this->getParam('utm_medium');
@@ -127,7 +142,7 @@ class Tracking
 		$track->uid = $uid;
 		$track->inserted = new DateTime;
 		$track->groupId = $group->id;
-		$track->ip = $this->request->getRemoteAddress();
+		$track->ip = $this->getIp();
 		$track->browser = $this->getParam('browser');
 		$track->value = $this->getParam('value');
 		$track->averageValue = $this->getParam('average');

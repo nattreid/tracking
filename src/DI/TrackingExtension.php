@@ -23,7 +23,8 @@ class TrackingExtension extends CompilerExtension
 		'trackUrl' => 'track',
 		'clickUrl' => 'clickTrack',
 		'minTimeBetweenVisits' => 30,
-		'onlineTime' => 3
+		'onlineTime' => 3,
+		'anonymizeIp' => false
 	];
 
 	public function loadConfiguration(): void
@@ -33,7 +34,7 @@ class TrackingExtension extends CompilerExtension
 
 		$builder->addDefinition($this->prefix('tracking'))
 			->setType(Tracking::class)
-			->setArguments([$config['minTimeBetweenVisits']]);
+			->setArguments([$config['minTimeBetweenVisits'], $config['anonymizeIp']]);
 
 		$builder->addDefinition($this->prefix('router'))
 			->setType(Router::class)
