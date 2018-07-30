@@ -1,125 +1,86 @@
 (function (window) {
 
     /**
-     * Trackovani
+     * Tracking
      * @returns {nTracker}
      */
     function nTracker() {
 
         /**
-         * nazev cookie
+         * cookie name
          */
         var cookie = 'tracker';
 
         /**
-         * url pro tracking
+         * tracking URL
          */
         var trackingUrl = '/track';
 
         /**
-         * url pro tracking
+         * click
          */
         var clickUrl = '/clickTrack';
 
         /**
-         * Trackovani parametru
+         * Send AJAX
+         * @param {array} data
          * @param {string} url
-         * @param {string} referrer
-         * @param {string} leaving
+         * @returns {boolean}
          */
-        this.track = function (url, referrer, leaving) {
-            if (typeof url === 'undefined') {
-                url = encodeURIComponent(document.location.href);
-            }
-            if (typeof referrer === 'undefined') {
-                referrer = document.referrer;
-            }
-
-            var data = [];
-            data.push('url=' + url);
-            data.push('referer=' + referrer);
-            data.push('browser=' + this.getBrowser());
-            this.getParameter(data, 'utm_source');
-            this.getParameter(data, 'utm_medium');
-            this.getParameter(data, 'utm_campaign');
-
-            if (typeof leaving !== 'undefined') {
-                data.push('leave=' + Math.floor(Math.random() * 10000));
-            }
-
-            this.post(data.join('&'), trackingUrl);
-        };
-
-        /**
-         * Trackovani parametru pres ajax (zaloguje i odchod ze stranky)
-         * @param {string} url
-         */
-        this.ajaxTrack = function (url) {
-            this.track(url, encodeURIComponent(document.location.href), true);
-        };
-
-        /**
-         * Track kliku po kliknuti na odkaz (nebo jakykoli html prvek s data atributem)
-         */
-        this.onClick = function () {
-            var obj = this;
-            var clicks = document.querySelectorAll('[data-nctr]');
-
-            for (var i = 0; i < clicks.length; i++) {
-                var func = function (event) {
-                    var name = event.path[0].dataset.nctr;
-                    var value = event.path[0].dataset.ncval;
-                    var average = event.path[0].dataset.ncavg;
-                    var sum = event.path[0].dataset.ncsum;
-                    obj.click(name, value, average, sum);
-                };
-                var tag = clicks[i];
-                if (tag.addEventListener) {
-                    tag.addEventListener("click", func, false);
-                } else {
-                    if (tag.attachEvent) {
-                        tag.attachEvent("onclick", func);
+        function post(data, url) {
+            var xmlhttp;
+            try {
+                // Opera 8.0+, Firefox, Safari
+                xmlhttp = new XMLHttpRequest();
+            } catch (e) {
+                // Internet Explorer Browsers
+                try {
+                    xmlhttp = new ActiveXObject('Msxml2.XMLHTTP');
+                } catch (e) {
+                    try {
+                        xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
+                    } catch (e) {
+                        // Something went wrong
+                        return false;
                     }
                 }
-
             }
-        };
+
+            xmlhttp.open('POST', url, true);
+            var cookieName = cookie;
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState === 4) {
+                    if (xmlhttp.status === 200) {
+                        document.cookie = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+                    }
+                }
+            };
+            xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xmlhttp.send(data);
+        }
 
         /**
-         * Trackovani kliku
-         * @param {string} name
-         * @param {string} value
-         * @param {float} average
-         * @param {float} sum
+         * Add parameter from window.search do data
+         * @param {array} data
+         * @param {string} parameter
          */
-        this.click = function (name, value, average, sum) {
-            var data = [];
-            data.push('click=' + name);
-            data.push('browser=' + this.getBrowser());
-            if (typeof value !== 'undefined') {
-                data.push('value=' + value);
+        function addParameter(data, parameter) {
+            var regex = '(' + parameter + '=[a-z0-9-]+)';
+            var search = window.location.search.match(regex);
+            if (search) {
+                data.push(search[1]);
             }
-            if (typeof average !== 'undefined') {
-                data.push('average=' + average);
+            var hash = window.location.hash.match(regex);
+            if (hash) {
+                data.push(hash[1]);
             }
-            if (typeof sum !== 'undefined') {
-                data.push('sum=' + sum);
-            }
-
-            this.post(data.join('&'), clickUrl);
-        };
+        }
 
         /**
-         * Trackovani opusteni stranky
+         * Get browser
+         * @returns {string}
          */
-        this.leaving = function () {
-            var data = [];
-            data.push('leave=' + Math.floor(Math.random() * 10000));
-
-            this.post(data.join('&'), trackingUrl);
-        };
-
-        this.getBrowser = function () {
+        function getBrowser() {
             var ua = navigator.userAgent, tem,
                 M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
             if (/trident/i.test(M[1])) {
@@ -135,90 +96,125 @@
             if ((tem = ua.match(/version\/(\d+)/i)) !== null)
                 M.splice(1, 1, tem[1]);
             return M.join(' ');
-        };
+        }
 
-        this.getParameter = function (data, parameter) {
-            var regex = '(' + parameter + '=[a-z0-9-]+)';
-            var search = window.location.search.match(regex);
-            if (search) {
-                data.push(search[1]);
-            }
-            var hash = window.location.hash.match(regex);
-            if (hash) {
-                data.push(hash[1]);
-            }
-        };
-
-        this.post = function (data, url) {
-            var xmlhttp;
-            try {
-                // Opera 8.0+, Firefox, Safari
-                xmlhttp = new XMLHttpRequest();
-            } catch (e) {
-                // Internet Explorer Browsers
-                try {
-                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-                } catch (e) {
-                    try {
-                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                    } catch (e) {
-                        // Something went wrong
-                        return false;
-                    }
+        /**
+         * Get click dataset
+         * @param {array} path
+         * @returns {array|null}
+         */
+        function getClickDataset(path) {
+            var el;
+            for (var i = 0; i < path.length; i++) {
+                el = path[i];
+                if (el.dataset.nctr !== undefined) {
+                    return el.dataset;
                 }
             }
+            return null;
+        }
 
-            xmlhttp.open("POST", url, true);
-            var cookieName = cookie;
-            xmlhttp.onreadystatechange = function () {
-                if (xmlhttp.readyState === 4) {
-                    if (xmlhttp.status === 200) {
-                        document.cookie = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
-                    }
-                }
-            };
-            xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xmlhttp.send(data);
+        /**
+         * Track
+         * @param {string} url
+         * @param {string} referrer
+         * @param {boolean} leaving
+         */
+        this.track = function (url, referrer, leaving) {
+            if (url == null) {
+                url = encodeURIComponent(document.location.href);
+            }
+            if (referrer == null) {
+                referrer = document.referrer;
+            }
+
+            var data = [];
+            data.push('url=' + url);
+            data.push('referer=' + referrer);
+            data.push('browser=' + getBrowser());
+            addParameter(data, 'utm_source');
+            addParameter(data, 'utm_medium');
+            addParameter(data, 'utm_campaign');
+
+            if (leaving != null) {
+                data.push('leave=' + Math.floor(Math.random() * 10000));
+            }
+
+            post(data.join('&'), trackingUrl);
         };
 
         /**
-         * Spusteni skriptu
+         * Track leave page
          */
+        function leave() {
+            var data = [];
+            data.push('leave=' + Math.floor(Math.random() * 10000));
+
+            post(data.join('&'), trackingUrl);
+        }
+
+        /**
+         * Click Track on click to element
+         */
+        function initOnClick() {
+            var clicks = document.querySelectorAll('[data-nctr]');
+
+            for (var i = 0; i < clicks.length; i++) {
+                var tag = clicks[i];
+                if (tag.addEventListener) {
+                    tag.addEventListener("click", clickTrack, false);
+                } else {
+                    if (tag.attachEvent) {
+                        tag.attachEvent("onclick", clickTrack);
+                    }
+                }
+
+            }
+        }
+
+        /**
+         * Handler for click event
+         * @param event
+         */
+        function clickTrack(event) {
+            var dataset = getClickDataset(event.path);
+
+            var data = [];
+            data.push('click=' + dataset.nctr);
+            data.push('browser=' + getBrowser());
+            if (dataset.ncval !== undefined) {
+                data.push('value=' + dataset.ncval);
+            }
+            if (dataset.average !== undefined) {
+                data.push('average=' + dataset.average);
+            }
+            if (dataset.ncsum !== undefined) {
+                data.push('sum=' + dataset.ncsum);
+            }
+
+            post(data.join('&'), clickUrl);
+        }
+
         this.run = function () {
             var obj = this;
 
-            obj.onLeave(function () {
-                obj.leaving();
-            });
+            // leave
+            window.onbeforeunload = leave;
 
-            obj.onLoad(function () {
+            // onLoad
+            var onLoad = function () {
                 obj.track();
-                obj.onClick();
-            });
-        };
+                initOnClick();
+            };
 
-        /**
-         * Metoda pro spusteni pri opusteni stranky
-         * @param {function} func
-         */
-        this.onLeave = function (func) {
-            window.onbeforeunload = func;
-        };
-
-        /**
-         * Metoda pro spusteni az po nacteni stranky
-         * @param {function} func
-         */
-        this.onLoad = function (func) {
             if (window.addEventListener) {
-                window.addEventListener("load", func, false);
+                window.addEventListener('load', onLoad, false);
             } else {
                 if (window.attachEvent) {
-                    window.attachEvent("onload", func);
+                    window.attachEvent('onload', onLoad);
                 }
             }
         };
-
     }
 
     window.nTracker = new nTracker();
