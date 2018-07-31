@@ -47,7 +47,7 @@ class TrackingPagesMapper extends Mapper
 	{
 		$builder = $this->builder()
 			->select('[page], SUM([visits]) visits, SUM([views]) views')
-			->andWhere('[datefield] BETWEEN DATE(%dt) AND DATE(%dt)', $interval->from, $interval->to)
+			->andWhere('DATE([datefield]) BETWEEN DATE(%dt) AND DATE(%dt)', $interval->from, $interval->to)
 			->groupBy('[page]')
 			->addOrderBy('[visits] DESC, [views] DESC, [page]');
 		return $this->execute($builder);

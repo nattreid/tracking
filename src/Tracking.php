@@ -261,4 +261,14 @@ class Tracking
 		return $this->orm->clickTracking->findClicksByDay($groupId, $interval);
 	}
 
+	/**
+	 * Pocet kliku podle hondoty
+	 * @param int $groupId
+	 * @param Range $interval
+	 * @return Result|null
+	 */
+	public function findClicksValue(int $groupId, Range $interval): ?Result
+	{
+		return $this->orm->clickTracking->findClicksByValue($groupId, $interval);
+	}
 }

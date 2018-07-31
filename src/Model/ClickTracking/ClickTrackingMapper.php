@@ -76,9 +76,24 @@ class ClickTrackingMapper extends Mapper
 		$builder = $this->builder()
 			->select('DATE([inserted]) date, COUNT([uid]) num, SUM([sumValue]) sum, AVG([averageValue]) avg')
 			->andWhere('[groupId] = %i', $groupId)
-			->andWhere('DATE([inserted]) BETWEEN %dt AND %dt', $interval->from, $interval->to)
+			->andWhere('DATE([inserted]) BETWEEN DATE(%dt) AND DATE(%dt)', $interval->from, $interval->to)
 			->groupBy('[date]');
 		return $this->execute($builder);
 	}
 
+	/**
+	 * @param int $groupId
+	 * @param Range $interval
+	 * @return Result|null
+	 * @throws QueryException
+	 */
+	public function findClicksByValue(int $groupId, Range $interval): ?Result
+	{
+		$builder = $this->builder()
+			->select('[value], COUNT([uid]) num, SUM([sumValue]) sum, AVG([averageValue]) avg')
+			->andWhere('[groupId] = %i', $groupId)
+			->andWhere('DATE([inserted]) BETWEEN DATE(%dt) AND DATE(%dt)', $interval->from, $interval->to)
+			->groupBy('[value]');
+		return $this->execute($builder);
+	}
 }

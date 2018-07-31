@@ -12,6 +12,7 @@ use Nextras\Dbal\Result\Result;
  * ClickTracking Repository
  *
  * @method Result|null findClicksByDay(int $groupId, Range $interval)  Pocet kliku po dnech
+ * @method Result|null findClicksByValue(int $groupId, Range $interval)  Pocet kliku podle hodnoty
  *
  * @author Attreid <attreid@gmail.com>
  */
