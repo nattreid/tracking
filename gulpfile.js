@@ -10,7 +10,7 @@ gulp.task('js', function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch('./assets/nTracker.js', ['js']);
+    gulp.watch('./assets/nTracker.js', gulp.series('js'));
 });
 
-gulp.task('default', ['js', 'watch']); 
+gulp.task('default', gulp.series('js', 'watch'));
