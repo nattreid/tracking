@@ -15,6 +15,7 @@ tracking:
     minTimeBetweenVisits: 30 # v minutach
     onlineTime: 3 # v minutach
     anonymizeIp: false
+    trackBot: false # ukládat i roboty?
 ```
 
 A přidat do orm model trackingu. V příkladu je extension orm pod nazvem **orm**

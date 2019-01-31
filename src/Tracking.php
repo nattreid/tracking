@@ -17,7 +17,6 @@ use Nette\SmartObject;
 use Nette\Utils\DateTime;
 use Nextras\Dbal\QueryException;
 use Nextras\Dbal\Result\Result;
-use Nextras\Orm\Collection\ICollection;
 use Nextras\Orm\Model\Model;
 
 /**
@@ -36,6 +35,9 @@ class Tracking
 	/** @var bool */
 	private $anonymizeIp;
 
+	/** @var bool */
+	private $trackBot;
+
 	/** @var Orm */
 	private $orm;
 
@@ -45,10 +47,11 @@ class Tracking
 	/** @var IRequest */
 	private $request;
 
-	public function __construct(int $minTimeBetweenVisits, bool $anonymizeIp, Model $orm, User $user, IRequest $request)
+	public function __construct(int $minTimeBetweenVisits, bool $anonymizeIp, bool $trackBot, Model $orm, User $user, IRequest $request)
 	{
 		$this->minTimeBetweenVisits = $minTimeBetweenVisits;
 		$this->anonymizeIp = $anonymizeIp;
+		$this->trackBot = $trackBot;
 		$this->orm = $orm;
 		$this->user = $user;
 		$this->request = $request;
@@ -91,14 +94,16 @@ class Tracking
 	 */
 	public function leave(): void
 	{
-		$track = $this->orm->tracking->getLatest($this->user->getUid());
+		if ($this->canTrack()) {
+			$track = $this->orm->tracking->getLatest($this->user->getUid());
 
-		if ($track) {
-			$timeOnPage = time() - $track->inserted->getTimestamp();
+			if ($track) {
+				$timeOnPage = time() - $track->inserted->getTimestamp();
 
-			if ($timeOnPage < ($this->minTimeBetweenVisits * 60)) {
-				$track->timeOnPage = $timeOnPage;
-				$this->orm->persistAndFlush($track);
+				if ($timeOnPage < ($this->minTimeBetweenVisits * 60)) {
+					$track->timeOnPage = $timeOnPage;
+					$this->orm->persistAndFlush($track);
+				}
 			}
 		}
 	}
@@ -108,19 +113,21 @@ class Tracking
 	 */
 	public function track(): void
 	{
-		$track = new TrackingEntity;
+		if ($this->canTrack()) {
+			$track = new TrackingEntity;
 
-		$track->uid = $this->user->getUid();
-		$track->inserted = new DateTime;
-		$track->url = $this->getParam('url');
-		$track->referer = $this->getParam('referer');
-		$track->ip = $this->getIp();
-		$track->browser = $this->getParam('browser');
-		$track->utmSource = $this->getParam('utm_source');
-		$track->utmMedium = $this->getParam('utm_medium');
-		$track->utmCampaign = $this->getParam('utm_campaign');
+			$track->uid = $this->user->getUid();
+			$track->inserted = new DateTime;
+			$track->url = $this->getParam('url');
+			$track->referer = $this->getParam('referer');
+			$track->ip = $this->getIp();
+			$track->browser = $this->getParam('browser');
+			$track->utmSource = $this->getParam('utm_source');
+			$track->utmMedium = $this->getParam('utm_medium');
+			$track->utmCampaign = $this->getParam('utm_campaign');
 
-		$this->orm->persistAndFlush($track);
+			$this->orm->persistAndFlush($track);
+		}
 	}
 
 	/**
@@ -239,6 +246,14 @@ class Tracking
 			}
 		}
 		$this->orm->refreshAll(true);
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function canTrack(): bool
+	{
+		return !$this->user->isBot() || $this->trackBot;
 	}
 
 	/**
