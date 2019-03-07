@@ -10,7 +10,7 @@ use Nextras\Orm\Entity\Entity;
 /**
  * TrackingPages
  *
- * @property mixed $id {primary-proxy}
+ * @property array $id {primary-proxy}
  * @property DateTimeImmutable $datefield {primary}
  * @property string $page  {primary}
  * @property int $visits
