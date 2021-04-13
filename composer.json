@@ -13,14 +13,14 @@
   ],
   "require": {
     "php": ">= 7.1",
-    "nette/di": "~2.4",
+    "nette/di": "~3.0",
     "nattreid/orm": "~1.0",
     "nattreid/utils": "~1.0",
     "nattreid/security": "~1.0",
     "nattreid/routing": "~1.0"
   },
   "require-dev": {
-    "nette/tester": "~1.7",
+    "nette/tester": "~2.4",
     "tracy/tracy": "~2.4"
   },
   "autoload": {
