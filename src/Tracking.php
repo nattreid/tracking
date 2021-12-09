@@ -60,12 +60,11 @@ class Tracking
 	/**
 	 * Vrati parametr
 	 * @param string $name
-	 * @param string $default
 	 * @return string|null
 	 */
-	private function getParam(string $name, string $default = null): ?string
+	private function getParam(string $name): ?string
 	{
-		return $this->request->getPost($name, $default);
+		return $this->request->getPost($name);
 	}
 
 	private function getIp(): string

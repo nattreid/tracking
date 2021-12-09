@@ -115,13 +115,12 @@ class TrackingPagesMapper extends Mapper
 
 	/**
 	 * @param IEntity|TrackingPages $entity
-	 * @return array
 	 * @throws QueryException
 	 */
-	public function persist(IEntity $entity)
+	public function persist(IEntity $entity):void
 	{
 		if (!$entity->isPersisted()) {
-			return parent::persist($entity);
+			parent::persist($entity);
 		} else {
 			$this->connection->query('UPDATE %table SET %set WHERE [datefield] = DATE(%dt) AND [page] = %s',
 				$this->getTableName(), [
@@ -130,7 +129,6 @@ class TrackingPagesMapper extends Mapper
 				],
 				$entity->datefield,
 				$entity->page);
-			return [$entity->datefield, $entity->page];
 		}
 	}
 }

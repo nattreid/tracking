@@ -83,8 +83,8 @@ class TrackingVisitsMapper extends Mapper
 	public function findCalculateDate(Range $interval): array
 	{
 		$result = [];
-		if (!isset($this->isCalculated[(string) $interval])) {
-			$this->isCalculated[(string) $interval] = true;
+		if (!isset($this->isCalculated[(string)$interval])) {
+			$this->isCalculated[(string)$interval] = true;
 
 			// dopocita posledni den
 			if ($interval->to->format('Y-m-d') >= (new DateTime)->format('Y-m-d')) {
@@ -134,20 +134,18 @@ class TrackingVisitsMapper extends Mapper
 
 	/**
 	 * @param IEntity|TrackingVisits $entity
-	 * @return array
 	 * @throws QueryException
 	 */
-	public function persist(IEntity $entity)
+	public function persist(IEntity $entity): void
 	{
 		if (!$entity->isPersisted()) {
-			return parent::persist($entity);
+			parent::persist($entity);
 		} else {
 			$this->connection->query('UPDATE %table SET %set WHERE [datefield] = %dts',
 				$this->getTableName(), [
 					'visits' => $entity->visits
 				],
 				$entity->datefield);
-			return [$entity->datefield];
 		}
 	}
 

@@ -170,13 +170,12 @@ class TrackingMapper extends Mapper
 
 	/**
 	 * @param IEntity|Tracking $entity
-	 * @return array
 	 * @throws QueryException
 	 */
-	public function persist(IEntity $entity)
+	public function persist(IEntity $entity): void
 	{
 		if (!$entity->isPersisted()) {
-			return parent::persist($entity);
+			parent::persist($entity);
 		} else {
 			$this->connection->query('UPDATE %table SET %set WHERE [aiid] = %i',
 				$this->getTableName(), [
@@ -192,7 +191,6 @@ class TrackingMapper extends Mapper
 					'utmCampaign' => $entity->utmCampaign,
 				],
 				$entity->aiid);
-			return [$entity->aiid, $entity->inserted];
 		}
 	}
 }
